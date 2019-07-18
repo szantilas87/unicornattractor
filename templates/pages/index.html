@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for query in queries %}
+        <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ query.author }}</a>
+            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ query.title }}</a></h2>
+            <p class="article-content">{{ query.content }}</p>
+        </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
