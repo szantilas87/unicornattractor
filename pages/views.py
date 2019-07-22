@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Query
@@ -9,6 +10,21 @@ class QueryListView(ListView):
     template_name = 'pages/index.html'
     context_object_name = 'queries'
     ordering = ['-date_posted']
+    paginate_by = 5
+
+#List of queries for a particular user
+class UserQueryListView(ListView):
+    model = Query
+    template_name = 'pages/user_queries.html'
+    context_object_name = 'queries'
+    paginate_by = 5
+
+    #Find queries for the specific user
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Query.objects.filter(author=user).order_by('-date_posted')
+
+
 
 #A view for particular query
 class QueryDetailView(DetailView):
