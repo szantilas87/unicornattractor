@@ -1,20 +1,45 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <article class="media content-section">
-        <img src="{{ object.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
-        <div class="media-body">
-            <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-queries' object.author.username %}">{{ object.author }}</a>
-            <small class="text-muted">{{ object.date_posted|date:"d F, Y" }}</small>
-            {% if object.author == user %}
+<article class="media content-section">
+    <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
+            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
+            {% if query.author == user %}
             <div>
-                <a class="btn btn-secondary btn-sm my-1" href="{% url 'query-update' object.id %}">Update</a>
-                <a class="btn btn-danger btn-sm my-1" href="{% url 'query-delete' object.id %}">Delete</a>
+                <a class="btn btn-secondary btn-sm my-1" href="{% url 'query-update' query.id %}">Update</a>
+                <a class="btn btn-danger btn-sm my-1" href="{% url 'query-delete' query.id %}">Delete</a>
             </div>
             {% endif %}
-            </div>
-            <h2 class="article-title">{{ object.title }}</h2>
-            <p class="article-content">{{ object.content }}</p>
         </div>
-    </article>
+        <h2 class="article-title">{{ query.title }}</h2>
+        <p class="article-content">{{ query.content }}</p>
+
+    <form method='POST'>
+        {% csrf_token %}
+        {{ comment_form|crispy}}
+        {% if request.user.is_authenticated  %}
+        <input type="submit" value="submit" class='btn btn-outline-success'>
+        {% else %}
+        <input type="submit" value="submit" class='btn btn-outline-success' disabled>
+        {% endif %}
+    </form>
+
+    {% if comments %}
+        {{ comments.count }} Comment{{ comments|pluralize}}
+        {% for comment in comments  %}
+            <div class="media content-section">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{ comment.content}}
+                    </p>
+                    <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user|capfirst }}</cite>
+                    </footer>
+                </blockquote>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+</article>
 {% endblock content %}

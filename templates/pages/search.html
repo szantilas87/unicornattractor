@@ -10,14 +10,18 @@
                 <div class="form-row">
                 <div class="col-md-4 mb-3">
                     <label class="sr-only">Keywords</label>
-                    <input type="text" name="keywords" class="form-control" placeholder="Keyword">
+                    <input type="text" name="keywords" class="form-control" placeholder="Keyword" value="{{ values.keywords }}">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label class="sr-only">Type</label>
                     <select name="query_type" class="form-control">
                     <option selected="true" disabled="disabled">Type</option>
-                    {% for key, value in query_types.items %}
-                        <option value="{{ key }}">{{ value }}</option>
+                    {% for key, value in query_types.items  %}
+                        <option value="{{ key }}"
+                        {% if key == values.query_type %}
+                            selected
+                        {% endif %}
+                        >{{ value }}</option>
                     {% endfor %}
                     </select>
                 </div>
@@ -31,6 +35,7 @@
     </section>
 </div>
 <div class="container">
+{% if queries %}
     {% for query in queries %}
         <article class="media content-section">
         <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
@@ -44,27 +49,6 @@
         </div>
         </article>
     {% endfor %}
-    <!--Pagination-->
-    {% if is_paginated %}
-        
-        {% if page_obj.has_previous %}
-            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
-                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-        {% endif %}
-    
-    {% endif %}
+{% endif %}
 </div>
 {% endblock content %}
