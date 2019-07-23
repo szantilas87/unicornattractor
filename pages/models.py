@@ -16,6 +16,7 @@ class Query(models.Model):
     content = models.TextField()
     date_posted  = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User,related_name='likes', blank=True)
     query_type = models.CharField(
         max_length = 7,
         choices = QUERY_CHOICES,
@@ -27,6 +28,11 @@ class Query(models.Model):
     #Return url to a specific query
     def get_absolute_url(self):
         return reverse("query-detail", kwargs={"pk": self.pk})
+
+    # Count total likes
+
+    def total_likes(self):
+        return self.likes.count()
     
 # Model for a new comment
 

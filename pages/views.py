@@ -34,6 +34,10 @@ class UserQueryListView(ListView):
 #A view for particular query
 def query_detail(request, id):
     query = get_object_or_404(Query, id=id, )
+    is_liked = False
+    if query.likes.filter(id=request.user.id).exists():
+        is_liked = True
+
     comments = Comment.objects.filter(query=query).order_by('-id')
 
     if request.method == 'POST':
@@ -52,9 +56,24 @@ def query_detail(request, id):
         'query': query,
         'comments': comments,
         'comment_form': comment_form,
+        'is_liked': is_liked,
+        'total_likes': query.total_likes(),
     }
 
     return render(request,'pages/query_detail.html', context)
+
+# Like query
+def like_query(request):
+    query_id =request.POST.get('query_id')
+    query = get_object_or_404(Query, id=request.POST.get('query_id'))
+    is_liked = False
+    if query.likes.filter(id=request.user.id).exists():
+        query.likes.remove(request.user)
+        is_liked = False
+    else:
+        query.likes.add(request.user)
+        is_liked = True
+    return redirect('query-detail', id=query_id)
 
 #Create a new query
 class QueryCreateView(LoginRequiredMixin, CreateView):

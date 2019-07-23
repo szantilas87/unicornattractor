@@ -12,5 +12,5 @@ urlpatterns = [
     path('query/<int:pk>/delete', QueryDeleteView.as_view(), name='query-delete'),
     path('about/', views.about, name='about'),
     path('search/', views.search, name='search'),
-        
+    path('like/', views.like_query, name="like_query"),      
 ]

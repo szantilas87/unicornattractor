@@ -17,6 +17,20 @@
         <h2 class="article-title">{{ query.title }}</h2>
         <p class="article-content">{{ query.content }}</p>
 
+
+    {{ total_likes }} Like{{ total_likes|pluralize}}
+
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'like_query' %}" method="POST">
+            {% csrf_token %} 
+            {% if is_liked %}   
+            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-danger">Dislike</button>
+            {% else %}
+            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-primary">Like</button>
+            {% endif %}
+        </form>
+    {% endif %}
+
     <form method='POST'>
         {% csrf_token %}
         {{ comment_form|crispy}}
