@@ -67,4 +67,17 @@
     
     {% endif %}
 </div>
+<div>
+<h2>Buy for $50.00</h2>
+<form action="{% url 'features' %}" method="POST">
+    {% csrf_token %}
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="{{ key }}"
+        data-description="Features access"
+        data-image = 'https://i.ibb.co/JnG7Ps3/images.jpg'
+        data-amount="5000"
+        data-locale="auto">
+    </script>
+</form>
+</div>
 {% endblock content %}

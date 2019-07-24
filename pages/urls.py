@@ -3,6 +3,7 @@ from .views import QueryListView, QueryCreateView, QueryUpdateView, QueryDeleteV
 from . import views
 from pages.query_types import query_types
 
+
 urlpatterns = [
     path('', QueryListView.as_view(extra_context={'query_types': query_types}), name='home'),
     path('user/<str:username>', UserQueryListView.as_view(), name='user-queries'),
@@ -12,5 +13,7 @@ urlpatterns = [
     path('query/<int:pk>/delete', QueryDeleteView.as_view(), name='query-delete'),
     path('about/', views.about, name='about'),
     path('search/', views.search, name='search'),
-    path('like/', views.like_query, name="like_query"),      
+    path('like/', views.like_query, name='like_query'),
+    path('features/', views.features, name='features'),
+
 ]

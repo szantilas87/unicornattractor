@@ -7,7 +7,10 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Query, Comment
 from .forms import CommentForm
 from pages.query_types import query_types
+from django.conf import settings
+import stripe
 
+stripe.api_key = settings.STRIPE_PRIVATE_KEY
 
 #Main page view
 class QueryListView(ListView):
@@ -16,7 +19,12 @@ class QueryListView(ListView):
     context_object_name = 'queries' 
     ordering = ['-date_posted']
     paginate_by = 5
-   
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['key'] = settings.STRIPE_PUBLIC_KEY
+        return context
+       
 #List of queries for a particular user
 class UserQueryListView(ListView):
     model = Query
@@ -60,7 +68,6 @@ def query_detail(request, id):
         'comment_form': comment_form,
         'is_liked': is_liked,
         'total_likes': query.total_likes(),
-        
     }
     
     return render(request,'pages/query_detail.html', context, )
@@ -154,3 +161,14 @@ def search(request):
         'values': request.GET,
     }
     return render(request, 'pages/search.html', context)
+
+# Access to adding feature after payment
+def features(request):
+    if request.method == 'POST':
+        charge = stripe.Charge.create(
+            amount=5000,
+            currency='usd',
+            description='Features access',
+            source=request.POST['stripeToken']
+        )
+        return render(request, 'pages/features.html')
