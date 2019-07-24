@@ -12,16 +12,30 @@ class Query(models.Model):
         (BUG, 'Bug'),
         (FEATURE, 'Feature')
     ]
+    TO_DO = 'To do'
+    IN_PROGRESS = 'In progess'
+    DONE = 'Done'
+    STATUS_CHOICES = [
+    (TO_DO, 'To do'),
+    (IN_PROGRESS, 'In progess'),
+    (DONE, 'Done')
+    ]
     title = models.CharField(max_length=100)
     content = models.TextField()
     date_posted  = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    views = models.IntegerField(default=0)
     likes = models.ManyToManyField(User,related_name='likes', blank=True)
     query_type = models.CharField(
         max_length = 7,
         choices = QUERY_CHOICES,
         default= BUG,
         )
+    status = models.CharField(
+        max_length = 10,
+        choices = STATUS_CHOICES,
+        default= TO_DO,
+    )
     def __str__(self):
         return self.title
 
