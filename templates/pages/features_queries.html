@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1 class="mb-3">Queries by {{ view.kwargs.username }} {{ page_obj.paginator.count }}</h1>
+    <h1 class="mb-3">Number of features: {{ page_obj.paginator.count }}</h1>
     {% for query in queries %}
         <article class="media content-section">
         <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">

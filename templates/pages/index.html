@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="container">
     <section id="showcase-inner" class="showcase-search text-white py-5">
         <div class="container">
@@ -31,27 +32,27 @@
     </section>
 </div>
 <div class="container">
-    {% for query in queries %}
-        <article class="media content-section">
-        <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
-        <div class="media-body">
-            <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
-            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'query-detail' query.id %}">{{ query.title }}</a></h2>
-            <p class="article-content">{{ query.content }}</p>
+{% for query in queries %}
+    <article class="media content-section">
+    <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
+    <div class="media-body">
+        <div class="article-metadata">
+        <a class="mr-2" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
+        <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
         </div>
-        </article>
-    {% endfor %}
+        <h2><a class="article-title" href="{% url 'query-detail' query.id %}">{{ query.title }}</a></h2>
+        <p class="article-content">{{ query.content }}</p>
+    </div>
+    </article>
+{% endfor %}
     <!--Pagination-->
-    {% if is_paginated %}
+    {% if is_paginated  %}
         
         {% if page_obj.has_previous %}
             <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
         {% endif %}
-
+    
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
                 <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
@@ -69,15 +70,20 @@
 </div>
 <div>
 <h2>Buy for $50.00</h2>
-<form action="{% url 'features' %}" method="POST">
+<form action="{% url 'paid' %}" method="POST">
     {% csrf_token %}
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
         data-key="{{ key }}"
         data-description="Features access"
         data-image = 'https://i.ibb.co/JnG7Ps3/images.jpg'
         data-amount="5000"
+        data-email="{{ user.email}}"
         data-locale="auto">
     </script>
 </form>
+{% if request.user.profile.has_paid %}
+<h1>Paid</h1>
+{% endif %}
+
 </div>
 {% endblock content %}

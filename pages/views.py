@@ -10,7 +10,7 @@ from pages.query_types import query_types
 from django.conf import settings
 import stripe
 
-stripe.api_key = settings.STRIPE_PRIVATE_KEY
+
 
 #Main page view
 class QueryListView(ListView):
@@ -21,9 +21,13 @@ class QueryListView(ListView):
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
+        stripe.api_key = settings.STRIPE_PRIVATE_KEY
+        user = self.request.user
         context = super().get_context_data(**kwargs)
         context['key'] = settings.STRIPE_PUBLIC_KEY
         return context
+
+   
        
 #List of queries for a particular user
 class UserQueryListView(ListView):
@@ -36,6 +40,30 @@ class UserQueryListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Query.objects.filter(author=user).order_by('-date_posted')
+
+#List of features
+class FeaturesListView(ListView):
+    model = Query
+    template_name = 'pages/features_queries.html'
+    context_object_name = 'queries'
+    paginate_by = 5
+
+    #Find queries with type = feature
+    def get_queryset(self):
+        return Query.objects.filter(query_type="Feature" ).order_by('-date_posted')
+
+
+#List of bubs
+class BugsListView(ListView):
+    model = Query
+    template_name = 'pages/bug_queries.html'
+    context_object_name = 'queries'
+    paginate_by = 5
+
+    #Find queries with type = bug
+    def get_queryset(self):
+        return Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
+
 
 
 
@@ -163,7 +191,7 @@ def search(request):
     return render(request, 'pages/search.html', context)
 
 # Access to adding feature after payment
-def features(request):
+def paid(request):
     if request.method == 'POST':
         charge = stripe.Charge.create(
             amount=5000,
@@ -171,4 +199,4 @@ def features(request):
             description='Features access',
             source=request.POST['stripeToken']
         )
-        return render(request, 'pages/features.html')
+        return render(request, 'pages/paid.html')

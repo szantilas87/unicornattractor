@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import QueryListView, QueryCreateView, QueryUpdateView, QueryDeleteView, UserQueryListView
+from .views import QueryListView, QueryCreateView, QueryUpdateView, QueryDeleteView, UserQueryListView, FeaturesListView, BugsListView
 from . import views
 from pages.query_types import query_types
 
@@ -14,6 +14,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('search/', views.search, name='search'),
     path('like/', views.like_query, name='like_query'),
-    path('features/', views.features, name='features'),
+    path('paid/', views.paid, name='paid'),
+    path('features/', FeaturesListView.as_view(), name='features'),
+    path('bugs/', BugsListView.as_view(), name='bugs'),
 
 ]
