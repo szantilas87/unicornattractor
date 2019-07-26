@@ -9,7 +9,7 @@ from .forms import CommentForm
 from pages.query_types import query_types
 from django.conf import settings
 import stripe
-
+from django.http import HttpResponseRedirect
 
 
 #Main page view
@@ -65,8 +65,6 @@ class BugsListView(ListView):
         return Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
 
 
-
-
 #A view for particular query
 def query_detail(request, id):
     query = get_object_or_404(Query, id=id,)
@@ -114,25 +112,55 @@ def like_query(request):
     return redirect('query-detail', id=query_id)
 
 
-#Create a new query
-class QueryCreateView(LoginRequiredMixin, CreateView):
+#Create a new bug
+class BugCreateView(LoginRequiredMixin, CreateView):
     
     model = Query
-    fields = ['title', 'content', 'query_type']
+    fields = ['title', 'content',]
+    template_name = 'pages/new_bug.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.query_type = 'Bug'
+        return super().form_valid(form)
+    
+    
+    def get_success_url(self):
+        return reverse('query-detail', kwargs={'id': self.object.pk})
+
+#Mixin to check whether the user has paid donation, and give access to crearte a new feature
+class PaidUserOnlyMixin(object):
+    def has_permissions(self):
+        return self.request.user.profile.has_paid
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permissions():
+            return redirect('about')
+        return super(PaidUserOnlyMixin, self).dispatch(
+            request, *args, **kwargs)
+
+
+#Create a new feature
+class FeatureCreateView(LoginRequiredMixin, PaidUserOnlyMixin , CreateView):
+    model = Query
+    template_name = 'pages/new_feature.html'
+    fields = ['title', 'content',]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.query_type = 'Feature'
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse('home')
-
+        return reverse('query-detail', kwargs={'id': self.object.pk})
 
 #Update an exisiting query
 class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     model = Query
     fields = ['title', 'content']
+
+
 
     def form_valid(self, form):
         form.instance.author = self.request.user

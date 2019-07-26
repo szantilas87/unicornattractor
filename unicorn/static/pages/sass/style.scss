@@ -1,3 +1,263 @@
-a {
-    height: 100px;
+$small: 768px;
+$medium: 992px;
+$large: 1200px;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fafafa;
+    color: #333333;
+    font-size: 16px;
+}
+
+// .bg-steel {
+//     background-color: #5f788a;
+// }
+// .content-section {
+//     background: #ffffff;
+//     padding: 10px 20px;
+//     border: 1px solid #dddddd;
+//     border-radius: 3px;
+//     margin-bottom: 20px;
+// }
+// .article-title {
+//     color: #444444;
+// }
+// a.article-title:hover {
+//     color: #428bca;
+//     text-decoration: none;
+// }
+// .article-content {
+//     white-space: pre-line;
+// }
+// .article-img {
+//     height: 65px;
+//     width: 65px;
+//     margin-right: 16px;
+// }
+// .article-metadata {
+//     padding-bottom: 1px;
+//     margin-bottom: 4px;
+//     border-bottom: 1px solid #e3e3e3
+// }
+// .article-metadata a:hover {
+//     color: #333;
+//     text-decoration: none;
+// }
+// .article-svg {
+//     width: 25px;
+//     height: 25px;
+//     vertical-align: middle;
+// }
+// .account-img {
+//     height: 125px;
+//     width: 125px;
+//     margin-right: 20px;
+//     margin-bottom: 16px;
+// }
+// .account-heading {
+//     font-size: 2.5rem;
+// }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Poppins;
+}
+
+p {
+    font-family: Roboto;
+}
+
+.bg-light {
+    background: #fff;
+    border: 0;
+    font-family: Poppins;
+}
+
+.navbar-brand {
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
+}
+
+#showcase h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+#showcase img {
+    width: 90%;
+    margin-left: 60px;
+}
+
+#showcase .showcase-right {
+    margin-top: 90px;
+}
+
+#testimonials {
+    background: #f1f1f1;
+    padding: 50px 0 30px 0;
+    text-align: center;
+    margin-top: 40px;
+}
+
+#testimonials p {
+    font-size: 32px;
+    font-family: 'Josefin Sans';
+    color: #000;
+}
+
+#testimonials p.customer {
+    font-size: 20px;
+    color: #666;
+}
+
+#info1 .info-right {
+    margin-top: 90px;
+}
+
+#info2 {
+    margin-top: 90px;
+}
+
+#contact {
+    padding: 40px;
+    color: #fff;
+    border-top: #333 7px solid;
+    border-bottom: #333 7px solid;
+}
+
+// Footer
+footer p {
+    color: #999999;
+    line-height: 25px;
+}
+
+footer h2,
+h3 {
+    color: #fff;
+}
+
+footer h2 {
+    font-size: 18;
+}
+
+.footer-top {
+    background: #111;
+    padding: 80px 0;
+}
+
+.segment-one h3 {
+    font-family: Courgette;
+    color: #fff;
+    letter-spacing: 3px;
+    margin: 10px 0;
+}
+
+.segment-two h2 {
+    color: #fff;
+    font-family: Poppins;
+    text-transform: uppercase;
+}
+
+.segment-two h2:before {
+    content: "|";
+    color: #c65039;
+    padding-right: 10px;
+}
+
+.segment-two ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.segment-two a {
+    text-decoration: none;
+    color: #494848;
+}
+
+.segment-two ul li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    line-height: 40px;
+}
+
+.segment-three h2 {
+    color: #fff;
+    font-family: Poppins;
+    text-transform: uppercase;
+}
+
+.segment-three h2:before {
+    content: "|";
+    color: #c65039;
+    padding-right: 10px;
+}
+
+.segment-three a {
+    background: #494848;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.segment-three a i {
+    font-size: 20px;
+    color: #fff;
+    padding: 10px 12px;
+}
+
+.segment-four h2 {
+    color: #fff;
+    font-family: Poppins;
+    text-transform: uppercase;
+}
+
+.segment-four h2:before {
+    content: "|";
+    color: #c65039;
+    padding-right: 10px;
+}
+
+.segment-four form input[type=submit] {
+    background: #c65039;
+    border: none;
+    padding: 3px 15px;
+    margin-left: -5px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-bottom-text {
+    text-align: center;
+    background: #000;
+    line-height: 75px;
+}
+
+//Different scrren sizes
+@media only screen and (min-width: $small) and (max-width: $medium) {
+    .md-mb-30 {
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (max-width: $small) {
+    .sm-mb-30 {
+        margin-bottom: 30px;
+    }
+    .footer-top {
+        padding: 50px 0;
+    }
 }
