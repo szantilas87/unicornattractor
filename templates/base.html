@@ -15,9 +15,9 @@
 
 <body>
     <!--Navbar-->
-    {% include 'partials/_navbar.html' %} {% block content %}{% endblock %}
-
-
+    {% include 'partials/_navbar.html' %} 
+    {% block content %}
+    {% endblock %}
 
 
     <!--Footer-->
@@ -25,60 +25,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-        window.sr = ScrollReveal();
-        sr.reveal('.navbar', {
-            duration: 2000,
-            origin: 'bottom',
-            distance: '30px'
-        });
-        sr.reveal('.showcase-left', {
-            duration: 2000,
-            origin: 'top',
-            distance: '300px'
-        });
-        sr.reveal('.showcase-right', {
-            duration: 2000,
-            origin: 'right',
-            distance: '300px'
-        });
-        sr.reveal('.showcase-btn', {
-            duration: 2000,
-            delay: 2000,
-            origin: 'bottom',
-            distance: '30px'
-
-        });
-        sr.reveal('#testimonial div', {
-            duration: 2000,
-            origin: 'bottom'
-        });
-        sr.reveal('.info-left', {
-            duration: 2000,
-            origin: 'left',
-            distance: '300px',
-            viewFactor: 0.2
-        });
-        sr.reveal('.info-right', {
-            duration: 2000,
-            origin: 'right',
-            distance: '300px',
-            viewFactor: 0.2
-        });
-    </script>
-
-    <!-- Smoth scrolling source: https://stackoverflow.com/questions/7717527/smooth-scrolling-when-clicking-an-anchor-link -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <script src="{% static 'pages/js/main.js' %}"></script>
+    
+</script>
 </body>
 
 </html>
