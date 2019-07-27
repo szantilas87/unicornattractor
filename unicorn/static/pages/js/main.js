@@ -1,8 +1,12 @@
+//Reveal animations
+
 window.sr = ScrollReveal();
 sr.reveal('.navbar', {
     duration: 2000,
     origin: 'bottom',
-    distance: '30px'
+    distance: '30px',
+    easing: 'ease-in-out',
+
 });
 sr.reveal('.showcase-left', {
     duration: 2000,
@@ -16,7 +20,7 @@ sr.reveal('.showcase-right', {
 });
 sr.reveal('.showcase-btn', {
     duration: 2000,
-    delay: 2000,
+    delay: 1000,
     origin: 'bottom',
     distance: '30px'
 
@@ -37,6 +41,33 @@ sr.reveal('.info-right', {
     distance: '300px',
     viewFactor: 0.2
 });
+sr.reveal('.customer1', {
+    duration: 2000,
+    origin: 'left',
+    distance: '300px',
+    viewFactor: 0.2
+});
+sr.reveal('.customer2', {
+    duration: 2000,
+    origin: 'top',
+    distance: '300px',
+    viewFactor: 0.2
+});
+sr.reveal('.customer3', {
+    duration: 2000,
+    origin: 'bottom',
+    distance: '300px',
+    viewFactor: 0.2
+});
+sr.reveal('.customer4', {
+    duration: 2000,
+    origin: 'right',
+    distance: '300px',
+    viewFactor: 0.2
+});
+
+
+// Smooth scroll on main page
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -47,43 +78,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
-
-(function($) {
-    "use strict";
-    // Auto-scroll
-    $('#myCarousel').carousel({
-        interval: 5000
-    });
-
-    // Control buttons
-    $('.next').click(function() {
-        $('.carousel').carousel('next');
-        return false;
-    });
-    $('.prev').click(function() {
-        $('.carousel').carousel('prev');
-        return false;
-    });
-
-    // On carousel scroll
-    $("#myCarousel").on("slide.bs.carousel", function(e) {
-        var $e = $(e.relatedTarget);
-        var idx = $e.index();
-        var itemsPerSlide = 3;
-        var totalItems = $(".carousel-item").length;
-        if (idx >= totalItems - (itemsPerSlide - 1)) {
-            var it = itemsPerSlide -
-                (totalItems - idx);
-            for (var i = 0; i < it; i++) {
-                // append slides to end 
-                if (e.direction == "left") {
-                    $(
-                        ".carousel-item").eq(i).appendTo(".carousel-inner");
-                } else {
-                    $(".carousel-item").eq(0).appendTo(".carousel-inner");
-                }
-            }
-        }
-    });
-})
-(jQuery);
