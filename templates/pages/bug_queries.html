@@ -11,13 +11,14 @@
                     <img src="{% static 'img/bugsmall.png' %}" class="  card-img text-center" alt="...">
                     <div class="card-body ">
                         <h2>{{ query.title }}</h2>
-                        <br>
-                        <a href="{% url 'query-detail' query.id %}"
-                            class="btn btn-outline-secondary btn-lg mt-5 ">Details</a>
-                        <br><br>
-                        <small class="mt-5 ">Created: {{ query.date_posted|date:"d F, Y" }} by
-                            {{ query.author }}</small>
-
+                        
+                    </div>
+                    <div class="card-bottom text-center">
+                            <a href="{% url 'query-detail' query.id %}"
+                                class="btn btn-outline-secondary btn-lg ">Details</a>
+                            <br><br>
+                            <small>Created: {{ query.date_posted|date:"d F, Y" }} by
+                                {{ query.author }}</small>
                     </div>
                 </div>
             </div>

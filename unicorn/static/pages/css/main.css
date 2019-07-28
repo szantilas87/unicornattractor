@@ -30,6 +30,12 @@ p {
   color: #000;
   font-weight: 600; }
 
+.btn-outline-secondary {
+  color: #0b1926; }
+
+.nav-item {
+  font-size: 1.5rem; }
+
 #showcase h1,
 .info-left h1 {
   font-size: 50px;
@@ -60,6 +66,7 @@ p {
   border-top: #333 7px solid;
   border-bottom: #333 7px solid; }
 
+/* Features/Bugs List */
 .card-img {
   height: 125px;
   width: 125px;
@@ -69,16 +76,15 @@ p {
   border: 7px solid #665e5e;
   border-radius: 1.25rem;
   padding: 30px;
-  width: 20rem;
+  width: 320px;
   height: 500px;
   margin: 0 auto;
   float: none; }
 
-.btn-outline-secondary {
-  color: #0b1926; }
-
-.nav-item {
-  font-size: 1.5rem; }
+.card-bottom {
+  position: fixed;
+  top: 350px;
+  left: 60px; }
 
 /*Customers*/
 .profile-card-1 {
@@ -160,7 +166,18 @@ p {
 .profile-card-1 .icon-block a {
   text-decoration: none; }
 
-/* Bugs */
+/* Forms */
+.divider {
+  max-width: 100%;
+  border-width: .2rem;
+  border-color: #0b1926; }
+
+#div_id_title,
+#div_id_content {
+  font-family: Poppins;
+  text-transform: uppercase;
+  font-size: 1.5rem; }
+
 /* Footer */
 footer p {
   color: #999999;
