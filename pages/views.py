@@ -46,7 +46,7 @@ class FeaturesListView(ListView):
     model = Query
     template_name = 'pages/features_queries.html'
     context_object_name = 'queries'
-    paginate_by = 5
+    paginate_by = 8
 
     #Find queries with type = feature
     def get_queryset(self):
