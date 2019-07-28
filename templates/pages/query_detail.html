@@ -1,13 +1,84 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="conteiner-fluid mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>{{ query.query_type }}</h1>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6 mb-5 ">
+                        <div>
+                            <h2 class="mb-4">Created by:</h2>
+                            <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle author-img">
+                            <a class="display-4" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
+                        </div>
+                    </div>
+                    {% if query.author == user %}
+                        <div class="col-md-6 mt-2">
+                            <a class="btn btn-outline-secondary btn-lg float-right " href="{% url 'query-update' query.id %}">Update</a>
+                            <a class="btn btn-outline-danger btn-lg mr-2 float-right " href="{% url 'query-delete' query.id %}">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <h1>{{ query.title }}<span 
+                    {% if query.status == "To do" %}
+                        class="badge badge-danger ml-2"
+                    {% elif query.status == "In progess" %}
+                        class="badge badge-warning ml-2"
+                    {% else %}
+                        class="badge badge-primary ml-2"
+                    {% endif %}
+                    >{{ query.status }}</span>
+                </h1>
+
+                <h3 class="mt-4">Description: </h3>
+                <p class="lead">{{ query.content }}</p>
+                <p>Created: {{ query.date_posted|date:"d F, Y" }}</p>
+                <p class="float-right">Total views: {{ query.views}}</p>
+                <p>Like{{ total_likes|pluralize}}: {{ total_likes }}</p>   
+                    {% if request.user.is_authenticated %}
+                        <form action="{% url 'like_query' %}" method="POST">
+                            {% csrf_token %} {% if is_liked %}
+                            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-danger btn-lg ">Dislike</button> {% else %}
+                            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-primary btn-lg">Like</button> {% endif %}
+                        </form>
+                    {% endif %}
+                <hr class="divider">
+        
+                <form class="col-md-8 offset-md-2" method='POST'>
+                    {% csrf_token %} 
+                    {{ comment_form|crispy}} 
+                    {% if request.user.is_authenticated %}
+                        <input type="submit" value="submit" class='btn btn-outline-success btn-lg'> 
+                    {% else %}
+                        <input type="submit" value="submit" class='btn btn-outline-success btn-lg' disabled> 
+                    {% endif %}
+                </form>
+
+                {% if comments %} 
+                <p class="text-center">{{ comments.count }} Comment{{ comments|pluralize}}</p> 
+                    {% for comment in comments %}
+                    <div class="form-group col-md-8 offset-md-2">
+                        <textarea class="form-control" rows="4">{{ comment.content}}</textarea>
+                        <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user|capfirst }}</cite>
+                    </div>
+                    {% endfor %} 
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
 <article class="media content-section">
     <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
-            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
-            {% if query.author == user %}
+            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small> {% if query.author == user %}
             <div>
                 <a class="btn btn-secondary btn-sm my-1" href="{% url 'query-update' query.id %}">Update</a>
                 <a class="btn btn-danger btn-sm my-1" href="{% url 'query-delete' query.id %}">Delete</a>
@@ -21,42 +92,30 @@
         <h2 class="article-title">{{ query.query_type }}</h2>
 
 
-    {{ total_likes }} Like{{ total_likes|pluralize}}
-
-    {% if request.user.is_authenticated %}
+        {{ total_likes }} Like{{ total_likes|pluralize}} 
+        {% if request.user.is_authenticated %}
         <form action="{% url 'like_query' %}" method="POST">
-            {% csrf_token %} 
-            {% if is_liked %}   
-            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-danger">Dislike</button>
-            {% else %}
-            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-primary">Like</button>
-            {% endif %}
+            {% csrf_token %} {% if is_liked %}
+            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-danger">Dislike</button> {% else %}
+            <button type="submit" name='query_id' value={{ query.id}} class="btn btn-primary">Like</button> {% endif %}
         </form>
-    {% endif %}
-
-    <form method='POST'>
-        {% csrf_token %}
-        {{ comment_form|crispy}}
-        {% if request.user.is_authenticated  %}
-        <input type="submit" value="submit" class='btn btn-outline-success'>
-        {% else %}
-        <input type="submit" value="submit" class='btn btn-outline-success' disabled>
         {% endif %}
-    </form>
 
-    {% if comments %}
-        {{ comments.count }} Comment{{ comments|pluralize}}
-        {% for comment in comments  %}
-            <div class="media content-section">
-                <blockquote class="blockquote">
-                    <p class="mb-0">{{ comment.content}}
-                    </p>
-                    <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user|capfirst }}</cite>
-                    </footer>
-                </blockquote>
-            </div>
-        {% endfor %}
-    {% endif %}
+        <form method='POST'>
+            {% csrf_token %} {{ comment_form|crispy}} {% if request.user.is_authenticated %}
+            <input type="submit" value="submit" class='btn btn-outline-success'> {% else %}
+            <input type="submit" value="submit" class='btn btn-outline-success' disabled> {% endif %}
+        </form>
+
+        {% if comments %} {{ comments.count }} Comment{{ comments|pluralize}} {% for comment in comments %}
+        <div class="media content-section">
+            <blockquote class="blockquote">
+                <p class="mb-0">{{ comment.content}}
+                </p>
+                <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user|capfirst }}</cite>
+                </footer>
+            </blockquote>
+        </div>
+        {% endfor %} {% endif %}
     </div>
 </article>
-{% endblock content %}

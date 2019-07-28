@@ -8,6 +8,17 @@ body {
   color: #333333;
   font-size: 16px; }
 
+a:link {
+  text-decoration: none; }
+
+a {
+  color: #333333; }
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px; }
+
 /* Frontpage */
 h1,
 h2,
@@ -18,7 +29,8 @@ h6 {
   font-family: Poppins; }
 
 p {
-  font-family: Roboto; }
+  font-family: Poppins;
+  font-size: 1.2rem; }
 
 .bg-light {
   background: #fff;
@@ -66,6 +78,9 @@ p {
   border-top: #333 7px solid;
   border-bottom: #333 7px solid; }
 
+#id_content text {
+  visibility: hidden; }
+
 /* Features/Bugs List */
 .card-img {
   height: 125px;
@@ -83,8 +98,13 @@ p {
 
 .card-bottom {
   position: fixed;
-  top: 350px;
+  top: 370px;
   left: 60px; }
+
+.status {
+  position: fixed;
+  top: 330px;
+  left: 80px; }
 
 /*Customers*/
 .profile-card-1 {
@@ -178,13 +198,19 @@ p {
   text-transform: uppercase;
   font-size: 1.5rem; }
 
+/* Post detalis */
+.author-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 16px; }
+
 /* Footer */
 footer p {
   color: #999999;
   line-height: 25px; }
 
 footer h2,
-h3 {
+footer h3 {
   color: #fff; }
 
 footer h2 {

@@ -49,28 +49,28 @@ sr.reveal('.customer1', {
     origin: 'left',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 2000,
+    delay: 1000,
 });
 sr.reveal('.customer2', {
     duration: 2000,
     origin: 'top',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 2000,
+    delay: 1000,
 });
 sr.reveal('.customer3', {
     duration: 2000,
     origin: 'bottom',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 2000,
+    delay: 1000,
 });
 sr.reveal('.customer4', {
     duration: 2000,
     origin: 'right',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 2000,
+    delay: 1000,
 });
 
 

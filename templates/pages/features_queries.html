@@ -11,14 +11,22 @@
                     <img src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="...">
                     <div class="card-body ">
                         <h2>{{ query.title }}</h2>
-                        
+                        <h5 class="status">Status:<span 
+                            {% if query.status == "To do" %}
+                                class="badge badge-danger ml-2"
+                            {% elif query.status == "In progess" %}
+                                class="badge badge-warning ml-1"
+                            {% else %}
+                                class="badge badge-primary ml-2"
+                            {% endif %}
+                        >{{ query.status }}</span></h5>
                     </div>
                     <div class="card-bottom text-center">
-                            <a href="{% url 'query-detail' query.id %}"
-                                class="btn btn-outline-secondary btn-lg ">Details</a>
-                            <br><br>
-                            <small>Created: {{ query.date_posted|date:"d F, Y" }} by
-                                {{ query.author }}</small>
+                        <a href="{% url 'query-detail' query.id %}"
+                            class="btn btn-outline-secondary btn-lg ">Details</a>
+                        <br><br>
+                        <small>Created: {{ query.date_posted|date:"d F, Y" }} by
+                            {{ query.author }}</small>
                     </div>
                 </div>
             </div>
