@@ -58,7 +58,7 @@ class BugsListView(ListView):
     model = Query
     template_name = 'pages/bug_queries.html'
     context_object_name = 'queries'
-    paginate_by = 5
+    paginate_by = 8
 
     #Find queries with type = bug
     def get_queryset(self):

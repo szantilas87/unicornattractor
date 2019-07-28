@@ -97,18 +97,15 @@ p {
 }
 
 #showcase img {
-    width: 70%;
-    margin-left: 60px;
-    margin-top: 40px;
+    margin-top: 60px;
+    width: 60%;
 }
 
 .info-right img {
-    width: 70%;
-    margin-left: 60px;
+    width: 50%;
 }
 
-#showcase .showcase-right,
-.info-left {
+#showcase .showcase-right {
     margin-top: 110px;
 }
 
@@ -122,10 +119,6 @@ p {
     margin-top: 90px;
 }
 
-#info2 {
-    margin-top: 90px;
-}
-
 #contact {
     padding: 40px;
     color: #fff;
@@ -133,8 +126,32 @@ p {
     border-bottom: #333 7px solid;
 }
 
+.card-img {
+    height: 125px;
+    width: 125px;
+    margin: 0 auto;
+}
 
-/*Profile Card 1*/
+.card {
+    border: 7px solid rgb(102, 94, 94);
+    border-radius: 1.25rem;
+    padding: 30px;
+    width: 20rem;
+    height: 500px;
+    margin: 0 auto;
+    float: none;
+}
+
+.btn-outline-secondary {
+    color: #0b1926;
+}
+
+.nav-item {
+    font-size: 1.5rem;
+}
+
+
+/*Customers*/
 
 .profile-card-1 {
     font-family: Poppins, Arial, sans-serif;
@@ -166,12 +183,12 @@ p {
     top: 40%;
 }
 
-.card p {
-    top: -50px;
+.card-customer p {
+    top: -125px;
     padding-left: 20px;
     padding-right: 20px;
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     position: relative;
 }
 
@@ -224,6 +241,9 @@ p {
 .profile-card-1 .icon-block a {
     text-decoration: none;
 }
+
+
+/* Bugs */
 
 
 /* Footer */

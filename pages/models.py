@@ -20,7 +20,7 @@ class Query(models.Model):
     (IN_PROGRESS, 'In progess'),
     (DONE, 'Done')
     ]
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=20)
     content = models.TextField()
     date_posted  = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

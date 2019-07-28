@@ -1,14 +1,14 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <section id="showcase">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="showcase-left">
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col-md-6 col-sm-12 col-xs-12 my-auto">
+                <div class="showcase-left text-center">
                     <img src="{% static 'img/bug.png' %}" alt="">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="showcase-right text-center">
+            <div class="col-md-6 col-sm-12 col-xs-12 my-auto">
+                <div class="showcase-right text-center mt-5">
                     <h1>WE WILL FIX ALL YOUR BUGS</h1>
                     <a class="btn btn-outline-secondary btn-lg showcase-btn ">Read more</a>
                 </div>
@@ -28,7 +28,7 @@
         <br>
         <div class="row ml-5">
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
-                <div class="card profile-card-1 customer1">
+                <div class="card-customer profile-card-1 customer1 ">
                     <img src="{% static 'img/land1.jpeg' %}" alt="profile-sample1" class="background" />
                     <img src="{% static 'img/face1.jpg' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
@@ -40,18 +40,18 @@
 
 
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
-                <div class="card profile-card-1 customer2">
+                <div class="card-customer profile-card-1 customer2">
                     <img src="{% static 'img/land2.jpeg' %}" alt="profile-sample1" class="background" />
                     <img src="{% static 'img/face2.jpg' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
-                        <h2>SEmmily Jones <small>Berlin</small></h2><br><br>
+                        <h2>Emmily Jones <small>Berlin</small></h2><br><br>
                     </div>
                     <p>"UnicornAttractor has got everything I need."</p>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
-                <div class="card profile-card-1 customer3">
+                <div class="card-customer profile-card-1 customer3">
                     <img src="{% static 'img/land4.jpeg' %}" alt="profile-sample1" class="background" />
                     <img src="{% static 'img/face4.jpg' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
@@ -63,7 +63,7 @@
 
 
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
-                <div class="card profile-card-1 customer4">
+                <div class="card-customer profile-card-1 customer4">
                     <img src="{% static 'img/land3.jpeg' %}" alt="profile-sample1" class="background" />
                     <img src="{% static 'img/face3.jpg' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
@@ -77,15 +77,15 @@
 </section>
 
 <section id="info1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 text-center">
-                <div class="info-left">
-                    <h1>WE WILL DEVELOP SOPHISTICATED FEATURES</h1>
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col-md-6 col-sm-12 col-xs-12 text-center my-auto">
+                <div class="info-left mt-5">
+                    <h1>WE WILL DEVELOP SOPHISTICATED FEATURES FOR YOU</h1>
                     <a class="btn btn-outline-secondary btn-lg showcase-btn">Read more</a>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-6 col-sm-12 col-xs-12 text-center my-auto">
                 <div class="info-right">
                     <img src="{% static 'img/hand.png' %}" alt=" ">
                 </div>
@@ -96,29 +96,7 @@
     </div>
 </section>
 <hr>
-<section id="info2">
-    <div class="container">
-        <div class="row ">
-            <div class="col-md-6 com-sm-6">
-                <div class="info-left">
-                    <h2>Info Block One</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam eum animi minus repellat accusantium iusto consectetur aspernatur molestiae, alias, ratione cum quidem voluptate natus cupiditate assumenda corporis accusamus. Adipisci,
-                        dicta.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="info-right ">
-                    <h2>Info Block Two</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam eum animi minus repellat accusantium iusto consectetur aspernatur molestiae, alias, ratione cum quidem voluptate natus cupiditate assumenda corporis accusamus. Adipisci,
-                        dicta.
-                    </p>
-                </div>
 
-            </div>
-        </div>
-    </div>
-</section>
 
 <section id="contact" style="background-image:url({% static 'img/code3.png' %}); ">
     <div class="container">
