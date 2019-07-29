@@ -1,11 +1,11 @@
 from django.urls import path
 from .views import QueryListView, BugCreateView, QueryUpdateView, QueryDeleteView, UserQueryListView, FeaturesListView, BugsListView, FeatureCreateView
 from . import views
-from pages.query_types import query_types
+
 
 
 urlpatterns = [
-    path('', QueryListView.as_view(extra_context={'query_types': query_types}), name='home'),
+    path('', QueryListView.as_view(), name='home'),
     path('user/<str:username>', UserQueryListView.as_view(), name='user-queries'),
     path('query/<int:id>', views.query_detail, name='query-detail'),
     path('query/new-bug/', BugCreateView.as_view(), name='bug-create'),

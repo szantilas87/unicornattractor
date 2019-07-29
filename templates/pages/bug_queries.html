@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<section id="search">
+    <div class="container">
+        <div id="showcase-inner" class="showcase-search text-white py-5">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <form action="{% url 'search' %}">
+                        <!-- Form Row 1 -->
+                        <div class="form-row">
+                            <div class="col-md-6 offset-md-3 mb-3 flex">
+                                <label class="sr-only">Keywords</label>
+                                <input type="text" name="keywords" class="form-control" placeholder="Keyword">
+                             <button class="btn btn-secondary" type="submit">Search</button>
+
+                            </div>
+                        </div>
+                    </div>
+                   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section>
     <div class="container-fluid text-center">
         <h1 class="text-center my-5">Number of bugs: {{ page_obj.paginator.count }}</h1>

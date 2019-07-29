@@ -35,14 +35,14 @@ sr.reveal('.info-left', {
     origin: 'left',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 1000,
+
 });
 sr.reveal('.info-right', {
     duration: 2000,
     origin: 'right',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 1000,
+
 });
 sr.reveal('.customer1', {
     duration: 2000,

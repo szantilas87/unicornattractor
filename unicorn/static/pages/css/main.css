@@ -14,6 +14,12 @@ a:link {
 a {
   color: #333333; }
 
+.fill {
+  min-height: 100vh; }
+
+.delete-conf {
+  margin-top: 30vh; }
+
 .article-img {
   height: 65px;
   width: 65px;
@@ -26,7 +32,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Poppins; }
+  font-family: Poppins;
+  word-break: break-all; }
 
 p {
   font-family: Poppins;

@@ -1,54 +1,68 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div class="container">
-    <section id="showcase-inner" class="showcase-search text-white py-5">
-        <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12">
-            <form action="{% url 'search' %}">
-                <!-- Form Row 1 -->
-                <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label class="sr-only">Keywords</label>
-                    <input type="text" name="keywords" class="form-control" placeholder="Keyword" value="{{ values.keywords }}">
+<section id="search">
+    <div class="container">
+        <div id="showcase-inner" class="showcase-search text-white py-5">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <form action="{% url 'search' %}">
+                        <!-- Form Row 1 -->
+                        <div class="form-row">
+                            <div class="col-md-6 offset-md-3 mb-3 flex">
+                                <label class="sr-only">Keywords</label>
+                                <input type="text" name="keywords" class="form-control" placeholder="Keyword">
+                             <button class="btn btn-secondary" type="submit">Search</button>
+
+                            </div>
+                        </div>
+                    </div>
+                   
+                    </form>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label class="sr-only">Type</label>
-                    <select name="query_type" class="form-control">
-                    <option selected="true" disabled="disabled">Type</option>
-                    {% for key, value in query_types.items  %}
-                        <option value="{{ key }}"
-                        {% if key == values.query_type %}
-                            selected
-                        {% endif %}
-                        >{{ value }}</option>
-                    {% endfor %}
-                    </select>
-                </div>
-                </div>
-                </div>
-                <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
-            </form>
             </div>
         </div>
-        </div>
-    </section>
-</div>
-<div class="container">
-{% if queries %}
-    {% for query in queries %}
-        <article class="media content-section">
-        <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
-        <div class="media-body">
-            <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
-            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
+    </div>
+</section>
+<section>
+    <div class="container-fluid text-center">
+        <h1 class="text-center my-5">Number of features: {{ page_obj.paginator.count }}</h1>
+        <div class="row  h-100">
+            {% for query in queries %}
+            <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
+                <div class="card card-query my-5 hvr-grow">
+                    <img
+                        {% if query.query_type == "Feature" %}
+                            src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="..."
+                        {% else %}
+                            src="{% static 'img/bugsmall.png' %}" class="  card-img text-center" alt="..."
+                        {% endif %} 
+                    >
+                    <div class="card-body ">
+                        <h2>{{ query.title }}</h2>
+                        <h5 class="status">Status:<span 
+                            {% if query.status == "To do" %}
+                                class="badge badge-danger ml-2"
+                            {% elif query.status == "In progess" %}
+                                class="badge badge-warning ml-1"
+                            {% else %}
+                                class="badge badge-primary ml-2"
+                            {% endif %}
+                        >{{ query.status }}</span></h5>
+                    </div>
+                    <div class="card-bottom card-query-bottom text-center">
+                        <a href="{% url 'query-detail' query.id %}"
+                            class="btn btn-outline-secondary btn-lg ">Details</a>
+                        <br><br>
+                        <small>Created: {{ query.date_posted|date:"d F, Y" }} by
+                            {{ query.author }}</small>
+                    </div>
+                </div>
             </div>
-            <h2><a class="article-title" href="{% url 'query-detail' query.id %}">{{ query.title }}</a></h2>
-            <p class="article-content">{{ query.content }}</p>
+            {% endfor %}
         </div>
-        </article>
-    {% endfor %}
-{% endif %}
-</div>
+    </div>
+</section>
 {% endblock content %}
+

@@ -17,34 +17,39 @@
                         </div>
                     </div>
                     {% if query.author == user %}
-                        <div class="col-md-6 mt-2">
+                        <div class="col-md-6 mt-2 mb-5">
                             <a class="btn btn-outline-secondary btn-lg float-right " href="{% url 'query-update' query.id %}">Update</a>
                             <a class="btn btn-outline-danger btn-lg mr-2 float-right " href="{% url 'query-delete' query.id %}">Delete</a>
                         </div>
                     {% endif %}
                 </div>
-                <h1>{{ query.title }}<span 
-                    {% if query.status == "To do" %}
-                        class="badge badge-danger ml-2"
-                    {% elif query.status == "In progess" %}
-                        class="badge badge-warning ml-2"
-                    {% else %}
-                        class="badge badge-primary ml-2"
-                    {% endif %}
-                    >{{ query.status }}</span>
-                </h1>
-                <h3 class="mt-4">Description: </h3>
-                    <p class="lead">{{ query.content }}</p>
-                    <p>Created: {{ query.date_posted|date:"d F, Y" }}</p>
-                    <p class="float-right">Total views: {{ query.views}}</p>
-                    <p>Like{{ total_likes|pluralize}}: {{ total_likes }}</p>   
-                        {% if request.user.is_authenticated %}
-                            <form action="{% url 'like_query' %}" method="POST">
-                                {% csrf_token %} {% if is_liked %}
-                                <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-danger btn-lg ">Dislike</button> {% else %}
-                                <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-primary btn-lg">Like</button> {% endif %}
-                            </form>
-                        {% endif %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>{{ query.title }}<span 
+                            {% if query.status == "To do" %}
+                                class="badge badge-danger ml-2"
+                            {% elif query.status == "In progess" %}
+                                class="badge badge-warning ml-2"
+                            {% else %}
+                                class="badge badge-primary ml-2"
+                            {% endif %}
+                            >{{ query.status }}</span>
+                        </h1>
+                        <h3 class="mt-4">Description: </h3>
+                            <p class="lead">{{ query.content }}</p>
+                            <p>Created: {{ query.date_posted|date:"d F, Y" }}</p>
+                            <p class="float-right">Total views: {{ query.views}}</p>
+                            <p>Like{{ total_likes|pluralize}}: {{ total_likes }}</p>   
+                                {% if request.user.is_authenticated %}
+                                    <form action="{% url 'like_query' %}" method="POST">
+                                        {% csrf_token %} {% if is_liked %}
+                                        <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-danger btn-lg ">Dislike</button> {% else %}
+                                        <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-primary btn-lg">Like</button> {% endif %}
+                                    </form>
+                                {% endif %}
+                    </div>
+                </div>
+                
                 <hr class="divider">
         
                 <form class="col-md-8 offset-md-2" method='POST'>

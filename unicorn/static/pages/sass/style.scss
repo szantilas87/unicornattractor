@@ -69,6 +69,14 @@
     // .account-heading {
     //     font-size: 2.5rem;
     // }
+    .fill {
+        min-height: 100vh;
+    }
+    
+    .delete-conf {
+        margin-top: 30vh;
+    }
+    
     .article-img {
         height: 65px;
         width: 65px;
@@ -83,6 +91,7 @@
     h5,
     h6 {
         font-family: Poppins;
+        word-break: break-all;
     }
     
     p {

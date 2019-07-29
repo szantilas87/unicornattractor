@@ -6,7 +6,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Query, Comment
 from .forms import CommentForm
-from pages.query_types import query_types
 from django.conf import settings
 import stripe
 from django.http import HttpResponseRedirect
@@ -53,7 +52,7 @@ class FeaturesListView(ListView):
         return Query.objects.filter(query_type="Feature" ).order_by('-date_posted')
 
 
-#List of bubs
+#List of bugs
 class BugsListView(ListView):
     model = Query
     template_name = 'pages/bug_queries.html'
@@ -63,6 +62,8 @@ class BugsListView(ListView):
     #Find queries with type = bug
     def get_queryset(self):
         return Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
+
+    
 
 
 #A view for particular query
@@ -102,6 +103,8 @@ def query_detail(request, id):
 def like_query(request):
     query_id =request.POST.get('query_id')
     query = get_object_or_404(Query, id=request.POST.get('query_id'))
+    query.total_like += 1
+    query.save()
     is_liked = False
     if query.likes.filter(id=request.user.id).exists():
         query.likes.remove(request.user)
@@ -205,16 +208,9 @@ def search(request):
         if keywords:
             queryset_list = queryset_list.filter(content__icontains=keywords) or queryset_list.filter(title__icontains=keywords)
     
-    #Filter by type of the query
-    if 'query_type' in request.GET:
-        query_type = request.GET['query_type']
-        if query_type:
-            queryset_list = queryset_list.filter(query_type__iexact=query_type) 
-
+    
     context = {
         'queries': queryset_list,
-        'query_types': query_types,
-        'values': request.GET,
     }
     return render(request, 'pages/search.html', context)
 
