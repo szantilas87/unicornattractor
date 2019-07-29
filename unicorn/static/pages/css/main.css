@@ -87,7 +87,7 @@ p {
   width: 125px;
   margin: 0 auto; }
 
-.card {
+.card-query {
   border: 7px solid #665e5e;
   border-radius: 1.25rem;
   padding: 30px;
@@ -96,7 +96,7 @@ p {
   margin: 0 auto;
   float: none; }
 
-.card-bottom {
+.card-query-bottom {
   position: fixed;
   top: 370px;
   left: 60px; }
@@ -186,6 +186,7 @@ p {
 .profile-card-1 .icon-block a {
   text-decoration: none; }
 
+/* Comments */
 /* Forms */
 .divider {
   max-width: 100%;

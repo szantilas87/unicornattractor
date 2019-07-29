@@ -7,7 +7,7 @@
         <div class="row  h-100">
             {% for query in queries %}
             <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
-                <div class="card my-5 hvr-grow">
+                <div class="card card-query my-5 hvr-grow">
                     <img src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="...">
                     <div class="card-body ">
                         <h2>{{ query.title }}</h2>
@@ -21,7 +21,7 @@
                             {% endif %}
                         >{{ query.status }}</span></h5>
                     </div>
-                    <div class="card-bottom text-center">
+                    <div class="card-bottom card-query-bottom text-center">
                         <a href="{% url 'query-detail' query.id %}"
                             class="btn btn-outline-secondary btn-lg ">Details</a>
                         <br><br>
