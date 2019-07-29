@@ -10,13 +10,35 @@
             <div class="col-md-6 col-sm-12 col-xs-12 my-auto">
                 <div class="showcase-right text-center mt-5">
                     <h1>WE WILL FIX ALL YOUR BUGS</h1>
-                    <a class="btn btn-outline-secondary btn-lg showcase-btn ">Read more</a>
                 </div>
             </div>
         </div>
         <br>
     </div>
 </section>
+
+<section id="bugs-info">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12 text-center">
+                <div class="bugs-left my-5">
+                    <h3>BROWSE THROUGH EXISTING BUGS</h3>
+                    <a class="btn btn-outline-secondary mt-2" href="{% url 'bugs' %}">BUGS</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12 text-center">
+                <div class="bugs-right my-5">
+                    <h3>ADD A NEW BUG</h3>
+                    <a class="btn btn-outline-secondary mt-2" href="{% url 'bug-create' %}">ADD</a>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
 <section id="testimonials">
     <div class="container-fluid">
@@ -76,13 +98,12 @@
     </div>
 </section>
 
-<section id="info1">
+<section id="features">
     <div class="container-fluid">
         <div class="row h-100">
             <div class="col-md-6 col-sm-12 col-xs-12 text-center my-auto">
-                <div class="info-left mt-5">
+                <div class="info-left mt-5 ml-5">
                     <h1>WE WILL DEVELOP SOPHISTICATED FEATURES FOR YOU</h1>
-                    <a class="btn btn-outline-secondary btn-lg showcase-btn">Read more</a>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12 text-center my-auto">
@@ -95,6 +116,29 @@
         </div>
     </div>
 </section>
+
+<section id="features-info">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12 text-center">
+                <div class="features-left my-5">
+                    <h3>CHECK THE FEATURES WE WORK ON</h3>
+                    <a class="btn btn-outline-secondary mt-2" href="{% url 'features' %}">FEATURES</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12 text-center">
+                <div class="features-right my-5">
+                    <h3>ADD A NEW FEATURE</h3>
+                    <a class="btn btn-outline-secondary mt-2" href="{% url 'feature-create' %}">ADD</a>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <hr>
 
 

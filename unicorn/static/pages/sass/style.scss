@@ -91,7 +91,6 @@
     h5,
     h6 {
         font-family: Poppins;
-        word-break: break-all;
     }
     
     p {
@@ -133,6 +132,7 @@
     
     .info-right img {
         width: 50%;
+        margin-left: 150px;
     }
     
     #showcase .showcase-right {
@@ -145,7 +145,7 @@
         text-align: center;
     }
     
-    #info1 .info-right {
+    .info-right {
         margin-top: 90px;
     }
     

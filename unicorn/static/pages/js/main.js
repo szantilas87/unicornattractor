@@ -44,34 +44,63 @@ sr.reveal('.info-right', {
     viewFactor: 0.2,
 
 });
+sr.reveal('.features-left', {
+    duration: 2000,
+    origin: 'bottom',
+    distance: '300px',
+    viewFactor: 0.2,
+    delay: 500,
+});
+sr.reveal('.features-right', {
+    duration: 2000,
+    origin: 'bottom',
+    distance: '300px',
+    viewFactor: 0.2,
+    delay: 500,
+});
+sr.reveal('.bugs-left', {
+    duration: 2000,
+    origin: 'left',
+    distance: '300px',
+    viewFactor: 0.2,
+    delay: 750,
+});
+sr.reveal('.bugs-right', {
+    duration: 2000,
+    origin: 'right',
+    distance: '300px',
+    viewFactor: 0.2,
+    delay: 750,
+});
 sr.reveal('.customer1', {
     duration: 2000,
     origin: 'left',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 1000,
+    delay: 500,
 });
 sr.reveal('.customer2', {
     duration: 2000,
     origin: 'top',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 1000,
+    delay: 500,
 });
 sr.reveal('.customer3', {
     duration: 2000,
     origin: 'bottom',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 1000,
+    delay: 500,
 });
 sr.reveal('.customer4', {
     duration: 2000,
     origin: 'right',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 1000,
+    delay: 750,
 });
+
 
 
 
