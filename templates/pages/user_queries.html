@@ -32,7 +32,13 @@
             {% for query in queries %}
             <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
                 <div class="card card-query my-5 hvr-grow">
-                    <img src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="...">
+                     <img
+                        {% if query.query_type == "Feature" %}
+                            src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="..."
+                        {% else %}
+                            src="{% static 'img/bugsmall.png' %}" class="  card-img text-center" alt="..."
+                        {% endif %} 
+                    >
                     <div class="card-body ">
                         <h2>{{ query.title }}</h2>
                         <h5 class="status">Status:<span 
