@@ -134,8 +134,7 @@ class BugCreateView(LoginRequiredMixin, CreateView):
 #Mixin to check whether the user has paid donation, and give access to crearte a new feature
 class PaidUserOnlyMixin(object):
     def has_permissions(self):
-        return self.request.user.profile.has_paid
-
+        return self.request.user.profile.premium
     def dispatch(self, request, *args, **kwargs):
         if not self.has_permissions():
             return redirect('about')

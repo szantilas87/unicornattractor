@@ -21,7 +21,7 @@ class Query(models.Model):
     (DONE, 'Done')
     ]
     title = models.CharField(max_length=20)
-    content = models.TextField()
+    content = models.TextField(verbose_name='Description')
     date_posted  = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     views = models.IntegerField(default=0)
@@ -37,9 +37,11 @@ class Query(models.Model):
         choices = STATUS_CHOICES,
         default= TO_DO,
     )
-    
+        
     def __str__(self):
         return self.title
+
+
 
     #Return url to a specific query
     def get_absolute_url(self):

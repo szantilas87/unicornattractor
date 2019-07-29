@@ -73,8 +73,8 @@
         min-height: 100vh;
     }
     
-    .delete-conf {
-        margin-top: 30vh;
+    .vh-middle {
+        margin-top: 10vh;
     }
     
     .article-img {
@@ -278,7 +278,6 @@
     .profile-card-1 .icon-block a {
         text-decoration: none;
     }
-    /* Comments */
     /* Forms */
     
     .divider {
@@ -288,10 +287,30 @@
     }
     
     #div_id_title,
-    #div_id_content {
+    #div_id_content,
+    #div_id_username,
+    #div_id_password,
+    #div_id_email,
+    #div_id_password1,
+    #div_id_password2,
+    #div_id_new_password1,
+    #div_id_new_password2 {
         font-family: Poppins;
         text-transform: uppercase;
         font-size: 1.5rem;
+    }
+    
+    #hint_id_username,
+    #hint_id_password1,
+    #hint_id_password2,
+    #hint_id_new_password1 {
+        font-size: 12px;
+    }
+    
+    #hint_id_password1 ul,
+    #hint_id_new_password1 {
+        margin-left: 15px;
+        list-style: none;
     }
     /* Post detalis */
     
