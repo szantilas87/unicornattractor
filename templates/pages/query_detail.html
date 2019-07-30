@@ -49,16 +49,14 @@
                                 {% endif %}
                     </div>
                 </div>
-                
                 <hr class="divider">
-        
                 <form class="col-md-8 offset-md-2" method='POST'>
                     {% csrf_token %} 
                     {{ comment_form|crispy}} 
                         {% if request.user.is_authenticated %}
-                            <input type="submit" value="submit" class='btn btn-outline-success btn-lg'> 
+                            <input type="submit" value="Submit" class='btn btn-outline-success btn-lg'> 
                         {% else %}
-                            <input type="submit" value="submit" class='btn btn-outline-success btn-lg' disabled> 
+                            <input type="submit" value="Submit" class='btn btn-outline-success btn-lg' disabled> 
                         {% endif %}
                 </form>
 

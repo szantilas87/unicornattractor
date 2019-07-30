@@ -216,7 +216,13 @@ p {
 #hint_id_password1,
 #hint_id_password2,
 #hint_id_new_password1 {
-  font-size: 12px; }
+  font-size: 12px;
+  font-family: Poppins; }
+
+#div_id_image {
+  font-size: 20px;
+  font-family: Poppins;
+  line-height: 40px; }
 
 #hint_id_password1 ul,
 #hint_id_new_password1 {

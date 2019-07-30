@@ -27,7 +27,7 @@
 </section>
 <section>
     <div class="container-fluid text-center">
-        <h1 class="mb-3">Queries by {{ view.kwargs.username }} {{ page_obj.paginator.count }}</h1>
+        <h1 class="mb-3">Queries created by {{ view.kwargs.username }} : {{ page_obj.paginator.count }}</h1>
         <div class="row  h-100">
             {% for query in queries %}
             <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
