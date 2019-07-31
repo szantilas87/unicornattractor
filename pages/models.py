@@ -25,7 +25,6 @@ class Query(models.Model):
     date_posted  = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     views = models.IntegerField(default=0)
-    total_like = models.IntegerField(default=0)
     likes = models.ManyToManyField(User,related_name='likes', blank=True)
     query_type = models.CharField(
         max_length = 7,
@@ -48,7 +47,6 @@ class Query(models.Model):
         return reverse("query-detail", kwargs={"pk": self.pk})
 
     # Count total likes
-
     def total_likes(self):
         return self.likes.count()
     

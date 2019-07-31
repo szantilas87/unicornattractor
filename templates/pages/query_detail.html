@@ -38,18 +38,24 @@
                         <h3 class="mt-4">Description: </h3>
                             <p class="lead">{{ query.content }}</p>
                             <p>Created: {{ query.date_posted|date:"d F, Y" }}</p>
+                            <!--Total views-->
                             <p class="float-right">Total views: {{ query.views}}</p>
+                            <!--Likes-->
                             <p>Like{{ total_likes|pluralize}}: {{ total_likes }}</p>   
                                 {% if request.user.is_authenticated %}
                                     <form action="{% url 'like_query' %}" method="POST">
-                                        {% csrf_token %} {% if is_liked %}
-                                        <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-danger btn-lg ">Dislike</button> {% else %}
-                                        <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-primary btn-lg">Like</button> {% endif %}
+                                        {% csrf_token %} 
+                                        {% if is_liked %}
+                                        <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-danger btn-lg ">Dislike</button> 
+                                        {% else %}
+                                        <button type="submit" name='query_id' value={{ query.id}} class="btn btn-outline-primary btn-lg">Like</button> 
+                                        {% endif %}
                                     </form>
                                 {% endif %}
                     </div>
                 </div>
                 <hr class="divider">
+                <!--Comments-->
                 <form class="col-md-8 offset-md-2" method='POST'>
                     {% csrf_token %} 
                     {{ comment_form|crispy}} 
@@ -82,4 +88,5 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}

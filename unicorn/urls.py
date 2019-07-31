@@ -20,6 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
 from pages import views as pages_views
+from bugs import views as bugs_views
+from features import views as features_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +33,8 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('', include('pages.urls')),
+    path('', include('bugs.urls')),
+    path('', include('features.urls')),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     
 ]

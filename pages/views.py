@@ -8,7 +8,7 @@ from .models import Query, Comment
 from .forms import CommentForm
 from django.conf import settings
 import stripe
-from django.http import HttpResponseRedirect
+
 
 
 #Main page view
@@ -17,7 +17,7 @@ class QueryListView(ListView):
     template_name = 'pages/index.html'
     context_object_name = 'queries' 
     ordering = ['-date_posted']
-    paginate_by = 5
+    
 
     def get_context_data(self, **kwargs):
         stripe.api_key = settings.STRIPE_PRIVATE_KEY
@@ -39,31 +39,6 @@ class UserQueryListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Query.objects.filter(author=user).order_by('-date_posted')
-
-#List of features
-class FeaturesListView(ListView):
-    model = Query
-    template_name = 'pages/features_queries.html'
-    context_object_name = 'queries'
-    paginate_by = 8
-
-    #Find queries with type = feature
-    def get_queryset(self):
-        return Query.objects.filter(query_type="Feature" ).order_by('-date_posted')
-
-
-#List of bugs
-class BugsListView(ListView):
-    model = Query
-    template_name = 'pages/bug_queries.html'
-    context_object_name = 'queries'
-    paginate_by = 8
-
-    #Find queries with type = bug
-    def get_queryset(self):
-        return Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
-
-    
 
 
 #A view for particular query
@@ -103,8 +78,6 @@ def query_detail(request, id):
 def like_query(request):
     query_id =request.POST.get('query_id')
     query = get_object_or_404(Query, id=request.POST.get('query_id'))
-    query.total_like += 1
-    query.save()
     is_liked = False
     if query.likes.filter(id=request.user.id).exists():
         query.likes.remove(request.user)
@@ -113,48 +86,6 @@ def like_query(request):
         query.likes.add(request.user)
         is_liked = True
     return redirect('query-detail', id=query_id)
-
-
-#Create a new bug
-class BugCreateView(LoginRequiredMixin, CreateView):
-    
-    model = Query
-    fields = ['title', 'content',]
-    template_name = 'pages/new_bug.html'
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.query_type = 'Bug'
-        return super().form_valid(form)
-    
-    
-    def get_success_url(self):
-        return reverse('query-detail', kwargs={'id': self.object.pk})
-
-#Mixin to check whether the user has paid donation, and give access to crearte a new feature
-class PaidUserOnlyMixin(object):
-    def has_permissions(self):
-        return self.request.user.profile.premium
-    def dispatch(self, request, *args, **kwargs):
-        if not self.has_permissions():
-            return redirect('about')
-        return super(PaidUserOnlyMixin, self).dispatch(
-            request, *args, **kwargs)
-
-
-#Create a new feature
-class FeatureCreateView(LoginRequiredMixin, PaidUserOnlyMixin , CreateView):
-    model = Query
-    template_name = 'pages/new_feature.html'
-    fields = ['title', 'content',]
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.query_type = 'Feature'
-        return super().form_valid(form)
-    
-    def get_success_url(self):
-        return reverse('query-detail', kwargs={'id': self.object.pk})
 
 #Update an exisiting query
 class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
