@@ -1,30 +1,45 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView
+from django.views.generic import CreateView
 from pages.models import Query
+from unicorn.sort_choices import sort_choices
 
 
 
 
 #List of bugs
-class BugsListView(ListView):
-    model = Query
-    template_name = 'pages/bug_queries.html'
-    context_object_name = 'queries'
-    paginate_by = 8
+def bugs(request):
+    queries = Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
+    sort = '-date_posted'
+    paginator = Paginator(queries, 8)
+    page = request.GET.get('page')
+    paged_queries = paginator.get_page(page)
 
-    #Find queries with type = bug
-    def get_queryset(self):
-        return Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
+    if 'sort' in request.GET:
+        sort = request.GET['sort']
+        if sort:
+            queries = queries.order_by(sort)
+            paginator = Paginator(queries, 8)
+            page = request.GET.get('page')
+            paged_queries = paginator.get_page(page)
+        
+    
+    context = {
+        'queries': paged_queries,
+        'sort_choices' : sort_choices,
+        'values': request.GET,
+        'sort': sort
+    }
+    return render(request, 'bugs/bug_queries.html', context)
 
-#Create a new bug
 class BugCreateView(LoginRequiredMixin, CreateView):
     
     model = Query
     fields = ['title', 'content',]
-    template_name = 'pages/new_bug.html'
+    template_name = 'bugs/new_bug.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

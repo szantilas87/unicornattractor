@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from .models import Query, Comment
 from .forms import CommentForm
 from django.conf import settings
 import stripe
+
 
 
 
@@ -130,17 +132,20 @@ def about(request):
 
 #Search view
 def search(request):
-    queryset_list = Query.objects.order_by('-date_posted')
+    queries = Query.objects.order_by('-date_posted')
+
+    paginator = Paginator(queries, 8)
+    page = request.GET.get('page')
+    paged_queries = paginator.get_page(page)
 
     #Search for keywords
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
-            queryset_list = queryset_list.filter(content__icontains=keywords) or queryset_list.filter(title__icontains=keywords)
-    
+            queries = queries.filter(content__icontains=keywords) or queries.filter(title__icontains=keywords)
     
     context = {
-        'queries': queryset_list,
+        'queries': queries,
     }
     return render(request, 'pages/search.html', context)
 

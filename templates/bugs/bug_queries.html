@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section id="search">
+    <div class="container mt-5">
+        <div class="row">
+                <div class="col-md-6 ">
+                <form action="{% url 'search' %}">
+                    <div class="flex">
+                        <label class="sr-only">Keywords</label>
+                        <input type="text" name="keywords" class="form-control" placeholder="Keyword">
+                        <button class="btn btn-info" type="submit">Search</button>
+                    </div>
+                </form>
+                </div>
+
+                <div class="col-md-3  offset-md-1">
+                <form action="{% url 'bugs' %}">
+                    <div class="flex">
+                        <label class="sr-only">Sort by</label>
+                        <select name="sort" class="form-control">
+                            <option selected="true" disabled="disabled">Sort by</option>
+                            {% for key,value in sort_choices.items %}
+                            <option value="{{ key }}">{{value}}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-info" type="submit">Sort</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid text-center">
+        <h1 class="text-center my-5">Number of bugs: {{ queries.paginator.count }}</h1>
+        <div class="row  h-100">
+            {% if queries %}
+                {% for query in queries %}
+                    <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
+                        <div class="card card-query my-5 hvr-grow">
+                            <img src="{% static 'img/bugsmall.png' %}" class="  card-img text-center" alt="...">
+                            <div class="card-body ">
+                            <h2>{{ query.title }}</h2>
+                            <h5 class="status">Status:<span 
+                            {% if query.status == "To do" %}
+                                class="badge badge-danger ml-2"
+                            {% elif query.status == "In progess" %}
+                                class="badge badge-warning ml-1"
+                            {% else %}
+                                class="badge badge-primary ml-2"
+                            {% endif %}
+                            >{{ query.status }}</span></h5>
+                            </div>
+                            <div class="card-bottom card-query-bottom text-center">
+                                    <a href="{% url 'query-detail' query.id %}"
+                                        class="btn btn-outline-secondary btn-lg ">Details</a>
+                                    <br><br>
+                                    <small>Created: {{ query.date_posted|date:"d F, Y" }} by
+                                        {{ query.author }}</small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>No Listing Available</p>
+                </div>
+            {% endif %}
+        </div>
+        <!--Pagination-->
+        {% if queries.has_other_pages %}
+        <div class="row ">
+            <div class="col-lg-12 text-center mt-5">
+                {% if queries.has_previous %}
+                <a class="btn btn-outline-secondary mb-4" href="?page=1&sort={{sort}}">First</a>
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ queries.previous_page_number }}&sort={{sort}}">Previous</a>
+                {% endif %}
+
+                {% for num in queries.paginator.page_range %}
+                {% if queries.number == num %}
+                <a class="btn btn-secondary mb-4" href="?page={{ num }}&sort={{sort}}">{{ num }}</a>
+                {% elif num > queries.number|add:'-3' and num < queries.number|add:'3'%}
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ num }}&sort={{sort}}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if queries.has_next %}
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ queries.next_page_number }}&sort={{sort}}">Next</a>
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ queries.paginator.num_pages }}&sort={{sort}}">Last</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}
