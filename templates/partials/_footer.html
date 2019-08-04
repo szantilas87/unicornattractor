@@ -19,9 +19,10 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 segment-four sm-mb-30">
                     <h2>Our newsletter</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas nobis dolore voluptatum laboriosam sapiente cum voluptate quaerat! Iste consequuntur ad maiores odit architecto! Numquam magni tempora asperiores adipisci. Nesciunt, repellendus.</p>
-                    <form action="">
+                    <form action="{% url 'newsletter' %}" method="POST">
+                    {% csrf_token %}
                         <div class="flex">
-                            <input type="email">
+                            <input name="email" type="email">
                             <input type="submit" value="Subscribe">
                         </div>
                     </form>

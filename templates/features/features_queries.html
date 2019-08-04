@@ -14,7 +14,7 @@
                 </form>
                 </div>
 
-                <div class="col-md-3  offset-md-1">
+                <div class="col-md-3  offset-md-1 sort">
                 <form action="{% url 'features' %}">
                     <div class="flex">
                         <label class="sr-only">Sort by</label>
@@ -33,12 +33,29 @@
 </section>
 <section>
     <div class="container-fluid text-center">
-        <h1 class="text-center my-5">Number of features: {{ queries.paginator.count }}</h1>
+        <div class="row h-100">
+            <div class="col-md-12">
+                <div class="mt-5">
+                    <h1 class="text-center">Number of features: {{ queries.paginator.count }}</h1><span>
+                    {% if request.user.profile.premium %}
+                        <a class="btn btn-outline-secondary mt-3 " href="{% url 'feature-create' %}">ADD NEW ONE</a>
+                    {% elif  request.user.is_authenticated%}
+                        <button type="button" class="btn btn-outline-secondary mt-3 " data-toggle="modal" data-target="#paymentModal">
+                            ADD NEW ONE
+                        </button>
+                    {% else %}
+                            <a class="btn btn-outline-secondary mt-3 " href="{% url 'feature-create' %}">ADD NEW ONE</a>
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
         <div class="row  h-100">
             {% for query in queries %}
             <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
                 <div class="card card-query my-5 hvr-grow">
-                    <img src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="...">
+                    <img src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="card image">
                     <div class="card-body ">
                         <h2>{{ query.title }}</h2>
                         <h5 class="status">Status:<span 
@@ -86,6 +103,33 @@
             </div>
         </div>
         {% endif %}
+    </div>
+</section>
+
+<section id="modal">
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Premium subcrition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">Only premium users can add features</h3>
+                <hr class="divider my-4">
+                <h5 class="text-center mt-4">Become a premium user for only $50.00</h5>
+            </div>
+            <div class="modal-footer ">
+                <form action="{% url 'paid' %}" method="POST">
+                    {% csrf_token %}
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button " data-key="{{ key }}" data-description="Premium access" data-image='https://i.ibb.co/JnG7Ps3/images.jpg' data-amount="5000" data-email="{{ user.email}}" data-locale="auto">
+                    </script>
+                </form>
+            </div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock content %}

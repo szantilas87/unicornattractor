@@ -6,6 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
 from pages.models import Query
 from unicorn.sort_choices import sort_choices
+from django.conf import settings
+import stripe
+from pages.views import paid
 
 
 
@@ -16,6 +19,10 @@ def features(request):
     paginator = Paginator(queries, 8)
     page = request.GET.get('page')
     paged_queries = paginator.get_page(page)
+
+    key = settings.STRIPE_PUBLIC_KEY
+    stripe.api_key = settings.STRIPE_PRIVATE_KEY
+      
 
     if 'sort' in request.GET:
         sort = request.GET['sort']
@@ -30,7 +37,9 @@ def features(request):
         'queries': paged_queries,
         'sort_choices' : sort_choices,
         'values': request.GET,
-        'sort': sort
+        'sort': sort,
+        'key': key,
+        'stripe.api_key': stripe.api_key,
     }
     return render(request, 'features/features_queries.html', context)
 

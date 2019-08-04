@@ -15,7 +15,7 @@
                 </form>
                 </div>
 
-                <div class="col-md-3  offset-md-1">
+                <div class="col-md-3  offset-md-1 sort">
                 <form action="{% url 'bugs' %}">
                     <div class="flex">
                         <label class="sr-only">Sort by</label>
@@ -34,7 +34,15 @@
 </section>
 <section>
     <div class="container-fluid text-center">
-        <h1 class="text-center my-5">Number of bugs: {{ queries.paginator.count }}</h1>
+        <div class="row h-100">
+            <div class="col-md-12">
+                <div class="mt-5">
+                    <h1 class="text-center">Number of bugs: {{ queries.paginator.count }}</h1><span>
+                    <a class="btn btn-outline-secondary mt-2" href="{% url 'bug-create' %}">ADD NEW ONE</a>
+                    </span>
+                </div>
+            </div>
+        </div>
         <div class="row  h-100">
             {% if queries %}
                 {% for query in queries %}

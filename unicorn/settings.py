@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'clw0@a#be%y0r23$fcazi+1(cz^(me!8f_z-x&v4rt6m8lh01j'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,6 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'features.apps.FeaturesConfig',
+    'bugs.apps.BugsConfig',
+    'contacts.apps.ContactsConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -140,5 +143,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
-STRIPE_PUBLIC_KEY = 'pk_test_td42NwxGD5JqO9udnVkgjeSG00Yv1l2NvM'
-STRIPE_PRIVATE_KEY = 'sk_test_kqPBZFkEF9SmdkMaKILAK8qL003GUxg5wZ'
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_PRIVATE_KEY = os.environ.get('STRIPE_PRIVATE_KEY')

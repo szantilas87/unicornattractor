@@ -22,6 +22,8 @@ from users import views as user_views
 from pages import views as pages_views
 from bugs import views as bugs_views
 from features import views as features_views
+from contacts import views as contacts_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +37,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('', include('bugs.urls')),
     path('', include('features.urls')),
+    path('', include('contacts.urls')),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     
 ]
