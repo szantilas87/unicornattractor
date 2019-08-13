@@ -17,10 +17,13 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email',]
 
 #Update logged user profile
 class ProfileUpdateForm(forms.ModelForm):
+    image = forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = Profile
         fields = ['image']
+       
+        

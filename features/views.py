@@ -14,7 +14,7 @@ from pages.views import paid
 
 #List of features
 def features(request):
-    queries = Query.objects.filter(query_type="Feature" ).order_by('-date_posted')
+    queries = Query.objects.filter(query_type="Feature").order_by('-date_posted')
     sort = '-date_posted'
     paginator = Paginator(queries, 8)
     page = request.GET.get('page')

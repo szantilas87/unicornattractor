@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Contact
+from django.contrib import messages
 
 
 def contact(request):
@@ -22,7 +23,7 @@ def contact(request):
             ['flaskmail123@gmail.com','otheremail@somewhere.com'],
             fail_silently=False,
         )
-
+        messages.success(request, 'Your message has been sent')
         return redirect('home')
 
 def newsletter(request):
@@ -36,5 +37,6 @@ def newsletter(request):
             ['flaskmail123@gmail.com','otheremail@somewhere.com'],
             fail_silently=False,
         )
+        messages.success(request, 'Your request has been sent')
 
         return redirect('home')

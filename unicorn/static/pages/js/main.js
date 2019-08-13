@@ -116,3 +116,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+$(document).ready(function() {
+    $('#exampleModal').modal({ show: true })
+});
