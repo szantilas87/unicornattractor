@@ -15,3 +15,4 @@ urlpatterns = [
     path('like/', views.like_query, name='like_query'),
     path('paid/', views.paid, name='paid'),
 ]
+
