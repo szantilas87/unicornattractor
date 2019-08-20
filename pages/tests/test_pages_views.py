@@ -5,7 +5,7 @@ from django.test import RequestFactory
 from django.contrib.auth.models import User
 from mixer.backend.django import mixer
 from pages.views import query_detail
-import pytest
+
 
 
 class TestPagesViews(TestCase):
