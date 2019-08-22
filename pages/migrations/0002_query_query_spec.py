@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='query',
             name='query_spec',
-            field=models.CharField(choices=[('Bug', 'Bug'), ('Feature', 'Feature')], default='Bug', max_length=2),
+            field=models.CharField(choices=[('Bug', 'Bug'), ('Feature', 'Feature')], default='Bug',  max_length=10),
         ),
     ]
