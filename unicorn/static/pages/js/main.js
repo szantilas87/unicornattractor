@@ -101,6 +101,50 @@ sr.reveal('.customer4', {
     delay: 750,
 });
 
+sr.reveal('#piechart', {
+    duration: 2000,
+    origin: 'left',
+    distance: '300px',
+    viewFactor: 0.2,
+    delay: 250,
+});
+sr.reveal('#pietext', {
+    duration: 2000,
+    origin: 'right',
+    distance: '300px',
+    viewFactor: 0.2,
+    delay: 250,
+});
+sr.reveal('#statuschart', {
+    duration: 2000,
+    origin: 'right',
+    distance: '100px',
+    viewFactor: 0.2,
+    delay: 750,
+});
+sr.reveal('#statustext', {
+    duration: 2000,
+    origin: 'left',
+    distance: '100px',
+    viewFactor: 0.2,
+    delay: 750,
+});
+
+sr.reveal('#datestext', {
+    duration: 2000,
+    origin: 'bottom',
+    distance: '75px',
+    viewFactor: 0.2,
+    delay: 1000,
+});
+sr.reveal('#dateschart', {
+    duration: 2000,
+    origin: 'bottom',
+    distance: '75px',
+    viewFactor: 0.2,
+    delay: 1000,
+});
+
 
 
 

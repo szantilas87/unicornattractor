@@ -1,36 +1,31 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% block content %}
-
+{% extends 'base.html' %} {% load static %} {% block content %}
 <div class="container-fluid">
     <h1 class="mr-5 mt-4">About us</h1>
     <div class="row  mt-5 h-100">
-        <div class="col-md-6 col-sm-12 text-center my-auto">
-            <img class="chart " src="/media/charts/pie.png" alt="pie chart">
+        <div id="piechart" class="col-md-6 col-sm-12 text-center my-auto">
+            <img class="chart " src="{% static 'charts/pie.png' %}" alt="pie chart">
         </div>
-        <div class="col-md-6 col-sm-12 text-center my-auto">
+        <div id="pietext" class="col-md-6 col-sm-12 text-center my-auto">
             <h2 class="mt-4">Bugs and Features</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores aperiam nihil ullam earum quae fuga omnis delectus sed! Maiores nam dolore aspernatur neque repellendus veritatis earum praesentium facere? Sit, cupiditate?</p>
+            <p>We work on many projects simultaneously, and try to keep the balance between fixing bugs for the community and creating new features for our customers.</p>
         </div>
     </div>
-
-    <div class="row  mt-5 h-100">
-        <div class="col-md-6 col-sm-12  text-center my-auto">
+    <div class="row mt-5 h-100">
+        <div id="statustext" class="col-md-6 col-sm-12  text-center my-auto">
             <h2 class="mt-4">Status</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores aperiam nihil ullam earum quae fuga omnis delectus sed! Maiores nam dolore aspernatur neque repellendus veritatis earum praesentium facere? Sit, cupiditate?</p>
+            <p>We do our best to deliver results on time. You can check how many projects we work on currently, and how many are in progress or have been finished.</p>
         </div>
-        <div class="col-md-6 col-sm-12 order-first order-md-last text-center my-auto">
-            <img class="chart " src="/media/charts/status.png" alt="statuses">
+        <div id="statuschart" class="col-md-6 col-sm-12 order-first order-md-last text-center my-auto">
+            <img class="chart " src="{% static 'charts/status.png' %}" alt="statuses">
         </div>
     </div>
-
-    <div class="row  my-5 h-100">
-        <div class="col-md-6 col-sm-12 text-center my-auto">
-             <img class="chart " src="/media/charts/dates.png" alt="dates">
+    <div class="row my-5 h-100">
+        <div id="dateschart" class="col-md-6 col-sm-12 text-center my-auto">
+            <img class="chart " src="{% static 'charts/dates.png' %}" alt="dates">
         </div>
-        <div class="col-md-6 col-sm-12 text-center my-auto">
+        <div id="datestext" class="col-md-6 col-sm-12 text-center my-auto">
             <h2 class="mt-4">Dates</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores aperiam nihil ullam earum quae fuga omnis delectus sed! Maiores nam dolore aspernatur neque repellendus veritatis earum praesentium facere? Sit, cupiditate?</p>
+            <p>Every day we receive requests from our users and clients. You can track how many of them we get each day.</p>
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@
         <div class="row h-100">
             <div class="col-md-6 col-sm-12 col-xs-12 my-auto">
                 <div class="showcase-left text-center">
-                    <img src="{% static 'img/bug.png' %}" alt="">
+                    <img src="{% static 'img/bug.webp' %}" alt="bug picture">
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12 my-auto">
@@ -51,43 +51,38 @@
         <div class="row ml-5">
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="card-customer profile-card-1 customer1 ">
-                    <img src="{% static 'img/land1.jpeg' %}" alt="profile-sample1" class="background" />
-                    <img src="{% static 'img/face1.jpg' %}" alt="profile-image" class="profile" />
+                    <img src="{% static 'img/land1.webp' %}" alt="profile-sample1" class="background" />
+                    <img src="{% static 'img/face1.webp' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
                         <h2>James Norwood<small>London</small></h2><br><br>
                     </div>
                     <p>"UnicornAttractor should be nominated for service of the year."</p>
                 </div>
             </div>
-
-
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="card-customer profile-card-1 customer2">
-                    <img src="{% static 'img/land2.jpeg' %}" alt="profile-sample1" class="background" />
-                    <img src="{% static 'img/face2.jpg' %}" alt="profile-image" class="profile" />
+                    <img src="{% static 'img/land2.webp' %}" alt="profile-sample1" class="background" />
+                    <img src="{% static 'img/face2.webp' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
                         <h2>Emmily Jones <small>Berlin</small></h2><br><br>
                     </div>
                     <p>"UnicornAttractor has got everything I need."</p>
                 </div>
             </div>
-
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="card-customer profile-card-1 customer3">
-                    <img src="{% static 'img/land4.jpeg' %}" alt="profile-sample1" class="background" />
-                    <img src="{% static 'img/face4.jpg' %}" alt="profile-image" class="profile" />
+                    <img src="{% static 'img/land4.webp' %}" alt="profile-sample1" class="background" />
+                    <img src="{% static 'img/face4.webp' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
                         <h2>Steven Wilson<small>London</small></h2><br><br>
                     </div>
                     <p>" The service was excellent. It's exactly what I've been looking for."</p>
                 </div>
             </div>
-
-
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
                 <div class="card-customer profile-card-1 customer4">
-                    <img src="{% static 'img/land3.jpeg' %}" alt="profile-sample1" class="background" />
-                    <img src="{% static 'img/face3.jpg' %}" alt="profile-image" class="profile" />
+                    <img src="{% static 'img/land3.webp' %}" alt="profile-sample1" class="background" />
+                    <img src="{% static 'img/face3.webp' %}" alt="profile-image" class="profile" />
                     <div class="card-content">
                         <h2>Shara Nelson <small>Berlin</small></h2><br><br>
                     </div>
@@ -108,7 +103,7 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12 text-center my-auto">
                 <div class="info-right">
-                    <img src="{% static 'img/hand.png' %}" alt=" ">
+                    <img src="{% static 'img/hand.webp' %}" alt="features picture">
                 </div>
                 <br>
 
@@ -147,7 +142,7 @@
 
 <hr>
 
-<section id="contact" style="background-image:url({% static 'img/code3.png' %}); ">
+<section id="contact" style="background-image:url({% static 'img/code3.webp' %}); ">
     <div class="container">
         <div class="row ">
             <div class="col-md-5 col-sm-5">
@@ -155,7 +150,7 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label>Name: </label>
-                        <input class="form-control" type="text" name="name" 
+                        <input class="form-control" type="text" name="name" aria-label="Name filed" 
                         {% if user.is_authenticated %}
                             value = "{{ user.first_name }} {{ user.last_name }}"
                         {% else %}
@@ -164,7 +159,7 @@
                     </div>
                     <div class="form-group">
                         <label>Email: </label>
-                        <input class="form-control" type="text" name="email"
+                        <input class="form-control" type="text" name="email" aria-label="Email field"
                         {% if user.is_authenticated %}
                             value = "{{ user.email }}"
                         {% else %}
@@ -173,13 +168,13 @@
                     </div>
                     <div class="form-group">
                         <label>Message: </label>
-                        <textarea class="form-control" name="message" placeholder="Enter Message "></textarea>
+                        <textarea class="form-control" name="message" placeholder="Enter Message" aria-label="Text field"></textarea>
                     </div>
                     <div class="form-group">
                         {% if user.is_authenticated %}
-                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <input type="hidden" name="user_id" value="{{ user.id }}" label="user id" aria-label="Submit">
                         {% else %}
-                            <input type="hidden" name="user_id" value="0">
+                            <input type="hidden" name="user_id" value="0" label="user id">
                         {% endif %}
                     </div>
                     <button class="btn btn-default">Submit</button>

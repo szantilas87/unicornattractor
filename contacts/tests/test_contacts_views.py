@@ -3,7 +3,6 @@ from django.urls import reverse
 from contacts.models import Contact
 from datetime import datetime
 
-
 class TestContactsViews(TestCase):
 
     def setUp(self):

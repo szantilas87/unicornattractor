@@ -48,9 +48,6 @@ p {
   color: #000;
   font-weight: 600; }
 
-.btn-outline-secondary {
-  color: #0b1926; }
-
 .nav-item {
   font-size: 1.5rem; }
 
@@ -329,9 +326,22 @@ footer h2 {
   background: #000;
   line-height: 75px; }
 
+#links a {
+  color: #c2b9b9; }
+
 /* About page */
 .chart {
   width: 40vw; }
+
+/* Buttons */
+.btn-outline-secondary {
+  color: #0b1926; }
+
+.btn-info {
+  color: #000; }
+
+.badge-primary {
+  color: #000; }
 
 /*Different scrren sizes */
 @media only screen and (min-width: 768px) and (max-width: 992px) {
@@ -349,5 +359,9 @@ footer h2 {
 
   .chart {
     width: 90vw; } }
+@font-face {
+  font-family: FontAwesome;
+  font-display: swap;
+  src: url(fonts/fontawesome-webfont.eot?v=5.6.3); }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <section id="search">
     <div class="container">
         <div id="showcase-inner" class="showcase-search text-white py-5">
@@ -11,7 +12,7 @@
                         <div class="form-row">
                             <div class="col-md-6 offset-md-3 mb-3 flex">
                                 <label class="sr-only">Keywords</label>
-                                <input type="text" name="keywords" class="form-control" placeholder="Keyword">
+                                <input type="text" name="keywords" class="form-control" placeholder="Keyword" label="keywords">
                              <button class="btn btn-info" type="submit">Search</button>
 
                             </div>
@@ -24,6 +25,7 @@
         </div>
     </div>
 </section>
+
 <section>
     <div class="container-fluid text-center">
         <h1 class="text-center my-5">Search results:</h1>
@@ -33,9 +35,9 @@
                 <div class="card card-query my-5 hvr-grow">
                     <img
                         {% if query.query_type == "Feature" %}
-                            src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="..."
+                            src="{% static 'img/featuresmall.webp' %}" class="  card-img text-center" alt="feature icon"
                         {% else %}
-                            src="{% static 'img/bugsmall.png' %}" class="  card-img text-center" alt="..."
+                            src="{% static 'img/bugsmall.webp' %}" class="  card-img text-center" alt="bug icon"
                         {% endif %} 
                     >
                     <div class="card-body ">
@@ -63,5 +65,6 @@
         </div>
     </div>
 </section>
+
 {% endblock content %}
 

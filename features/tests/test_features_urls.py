@@ -2,7 +2,6 @@ from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from features.views import features, FeatureCreateView
 
-
 class TestFeaturesUrls(SimpleTestCase):
     def test_features_url_resolves(self):
         url = reverse('features')

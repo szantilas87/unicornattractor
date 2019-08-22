@@ -24,7 +24,6 @@ from bugs import views as bugs_views
 from features import views as features_views
 from contacts import views as contacts_views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
@@ -39,9 +38,7 @@ urlpatterns = [
     path('', include('features.urls')),
     path('', include('contacts.urls')),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-    
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

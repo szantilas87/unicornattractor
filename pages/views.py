@@ -15,10 +15,8 @@ from django.db.models import Count
 import csv
 from datetime import datetime
 import pandas as pd
-
-
-
-
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
 """
 Main page view
 """
@@ -34,9 +32,8 @@ class QueryListView(ListView):
         user = self.request.user
         context = super().get_context_data(**kwargs)
         context['key'] = settings.STRIPE_PUBLIC_KEY
+        context['page_title']="UnicornAttractor"
         return context
-
-   
        
 """
 List of queries for a particular user
@@ -54,6 +51,11 @@ class UserQueryListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Query.objects.filter(author=user).order_by('-date_posted')
 
+    def get_context_data(self, **kwargs):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        context = super().get_context_data(**kwargs)
+        context['page_title']=user.username
+        return context
 
 """
 A view for particular query
@@ -86,6 +88,7 @@ def query_detail(request, id):
         'comment_form': comment_form,
         'is_liked': is_liked,
         'total_likes': query.total_likes(),
+        'page_title': query.title
     }
     
     return render(request,'pages/query_detail.html', context, )
@@ -112,13 +115,13 @@ class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     model = Query
     fields = ['title', 'content']
-
-
+    
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
+
     """
     Test if the logged user is the author of the query
     """
@@ -127,12 +130,12 @@ class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == query.author:
             return True
         return False
-
    
     def get_success_url(self):
         query = self.get_object()
         return reverse('query-detail', kwargs={"id":query.id} )
 
+ 
 
 """
 Delete a query
@@ -159,7 +162,6 @@ def about(request):
     """
     bugs = Query.objects.filter(query_type="Bug" ).count()
     features = Query.objects.filter(query_type="Feature").count()
-
     slices = [bugs, features]
     labels = ['Bugs', 'Features']
     colors = ['#008fd5', '#fc4f30']
@@ -178,7 +180,6 @@ def about(request):
     to_do = Query.objects.filter(status='To do').count()
     in_progress= Query.objects.filter(status='In progess').count()
     done = Query.objects.filter(status='Done').count()    
-
     statuses = [ to_do, in_progress, done]
     x_axis = np.arange(3)
     labels = ['To do', 'In progress', 'Done']
@@ -204,7 +205,6 @@ def about(request):
     Amount of queries in time
     """
     queries = Query.objects.all()
-
     fieldnames = ['date']
 
     with open('media/charts/raw_data.csv', 'w') as csv_file:
@@ -230,7 +230,7 @@ def about(request):
     fig3.tight_layout()
     fig3.savefig('media/charts/dates.png')
     
-    return render(request, 'pages/about.html')
+    return render(request, 'pages/about.html', {'page_title':'About'})
 
 
 """
@@ -238,7 +238,6 @@ Search view
 """
 def search(request):
     queries = Query.objects.order_by('-date_posted')
-
     paginator = Paginator(queries, 8)
     page = request.GET.get('page')
     paged_queries = paginator.get_page(page)
@@ -253,6 +252,7 @@ def search(request):
     
     context = {
         'queries': queries,
+        'page_title':'Search results' 
     }
     return render(request, 'pages/search.html', context)
 
@@ -267,4 +267,4 @@ def paid(request):
             description='Features access',
             source=request.POST['stripeToken']
         )
-        return render(request, 'pages/paid.html')
+        return render(request, 'pages/paid.html',  {'page_title':'Thank you'})

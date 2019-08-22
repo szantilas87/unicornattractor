@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 
-
 class TestFeaturesViews(TestCase):
 
     def setUp(self):

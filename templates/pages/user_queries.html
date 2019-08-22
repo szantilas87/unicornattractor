@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <section id="search">
     <div class="container">
         <div id="showcase-inner" class="showcase-search text-white py-5">
@@ -8,11 +9,10 @@
                 <div class="row text-center">
                     <div class="col-md-12">
                         <form action="{% url 'search' %}">
-                        <!-- Form Row 1 -->
                         <div class="form-row">
                             <div class="col-md-6 offset-md-3 mb-3 flex">
                                 <label class="sr-only">Keywords</label>
-                                <input type="text" name="keywords" class="form-control" placeholder="Keyword">
+                                <input type="text" name="keywords" class="form-control" placeholder="Keyword" label="keywords">
                              <button class="btn btn-secondary" type="submit">Search</button>
 
                             </div>
@@ -25,6 +25,7 @@
         </div>
     </div>
 </section>
+
 <section>
     <div class="container-fluid text-center">
         <h1 class="mb-3">Queries created by {{ view.kwargs.username }} : {{ page_obj.paginator.count }}</h1>
@@ -34,9 +35,9 @@
                 <div class="card card-query my-5 hvr-grow">
                      <img
                         {% if query.query_type == "Feature" %}
-                            src="{% static 'img/featuresmall.png' %}" class="  card-img text-center" alt="..."
+                            src="{% static 'img/featuresmall.webp' %}" class="  card-img text-center" alt="feature icon"
                         {% else %}
-                            src="{% static 'img/bugsmall.png' %}" class="  card-img text-center" alt="..."
+                            src="{% static 'img/bugsmall.webp' %}" class="  card-img text-center" alt="bug icon"
                         {% endif %} 
                     >
                     <div class="card-body ">
@@ -62,7 +63,7 @@
             </div>
             {% endfor %}
         </div>
-        {% comment %} Pagination {% endcomment %}
+         <!--Pagination-->
         {% if is_paginated %}
         <div class="row ">
             <div class="col-lg-12 text-center mt-5">
@@ -88,41 +89,5 @@
         {% endif %}
     </div>
 </section>
+
 {% endblock content %}
-
-<h1 class="mb-3">Queries by {{ view.kwargs.username }} {{ page_obj.paginator.count }}</h1>
-    {% for query in queries %}
-        <article class="media content-section">
-        <img src="{{ query.author.profile.image.url }}" alt="author image" class="rounded-circle article-img">
-        <div class="media-body">
-            <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-queries' query.author.username %}">{{ query.author }}</a>
-            <small class="text-muted">{{ query.date_posted|date:"d F, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'query-detail' query.id %}">{{ query.title }}</a></h2>
-            <p class="article-content">{{ query.content }}</p>
-        </div>
-        </article>
-    {% endfor %}
-    <!--Pagination-->
-    {% if is_paginated %}
-        
-        {% if page_obj.has_previous %}
-            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
-                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-        {% endif %}
-    
-    {% endif %}

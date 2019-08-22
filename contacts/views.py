@@ -3,17 +3,14 @@ from django.core.mail import send_mail
 from .models import Contact
 from django.contrib import messages
 
-
 def contact(request):
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
         message = request.POST['message']
         user_id = request.POST['user_id']
-
         contact = Contact(name=name, email=email,
                           message=message, user_id=user_id)
-
         contact.save()
 
         send_mail(
