@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='profile',
-            name='is_paid',
+            name='premium',
             field=models.BooleanField(default=False),
         ),
     ]
