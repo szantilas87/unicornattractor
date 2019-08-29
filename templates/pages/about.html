@@ -3,7 +3,7 @@
     <h1 class="mr-5 mt-4">About us</h1>
     <div class="row  mt-5 h-100">
         <div id="piechart" class="col-md-6 col-sm-12 text-center my-auto">
-            <img class="chart " src="{% static 'charts/pie.png' %}" alt="pie chart">
+            <img class="chart"src="data:image/png;base64, {{ piechart }}" alt="pie chart"/>
         </div>
         <div id="pietext" class="col-md-6 col-sm-12 text-center my-auto">
             <h2 class="mt-4">Bugs and Features</h2>
@@ -13,15 +13,15 @@
     <div class="row mt-5 h-100">
         <div id="statustext" class="col-md-6 col-sm-12  text-center my-auto">
             <h2 class="mt-4">Status</h2>
-            <p>We do our best to deliver results on time. You can check how many projects we work on currently, and how many are in progress or have been finished.</p>
+            <p>We do our best to deliver results on time. You can check how many projects we work on currently, and how many is the queue or have been finished.</p>
         </div>
         <div id="statuschart" class="col-md-6 col-sm-12 order-first order-md-last text-center my-auto">
-            <img class="chart " src="{% static 'charts/status.png' %}" alt="statuses">
+            <img class="chart"src="data:image/png;base64, {{ statuschart }}" alt="status chart"/>
         </div>
     </div>
     <div class="row my-5 h-100">
         <div id="dateschart" class="col-md-6 col-sm-12 text-center my-auto">
-            <img class="chart " src="{% static 'charts/dates.png' %}" alt="dates">
+            <img class="chart"src="data:image/png;base64, {{ datechart }}" alt="date chart"/>
         </div>
         <div id="datestext" class="col-md-6 col-sm-12 text-center my-auto">
             <h2 class="mt-4">Dates</h2>

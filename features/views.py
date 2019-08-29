@@ -10,10 +10,11 @@ from django.conf import settings
 import stripe
 from pages.views import paid
 
-"""
-List of features
-"""
+
 def features(request):
+    """
+    List of features
+    """ 
     queries = Query.objects.filter(query_type="Feature").order_by('-date_posted')
     sort = '-date_posted'
     paginator = Paginator(queries, 8)
@@ -41,9 +42,7 @@ def features(request):
     }
     return render(request, 'features/features_queries.html', context)
 
-"""
-Mixin to check whether the user has paid donation, and give access to crearte a new feature
-"""
+#Mixin to check whether the user has paid donation, and give access to crearte a new feature
 class PaidUserOnlyMixin(object):
     def has_permissions(self):
         return self.request.user.profile.premium
@@ -53,10 +52,11 @@ class PaidUserOnlyMixin(object):
         return super(PaidUserOnlyMixin, self).dispatch(
             request, *args, **kwargs)
 
-"""
-Create a new feature
-"""
+
 class FeatureCreateView(LoginRequiredMixin, PaidUserOnlyMixin , CreateView):
+    """
+    Create a new feature
+    """
     model = Query
     template_name = 'features/new_feature.html'
     fields = ['title', 'content',]

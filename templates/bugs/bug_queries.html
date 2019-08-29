@@ -10,7 +10,7 @@
                 <form action="{% url 'search' %}">
                     <div class="flex">
                         <label class="sr-only">Keywords</label>
-                        <input type="text" name="keywords" class="form-control" placeholder="Keyword" aria-label="keywords">
+                        <input type="text" name="keywords" class="form-control" placeholder="Keyword" aria-label="keywords" required>
                         <button class="btn btn-info" type="submit">Search</button>
                     </div>
                 </form>
@@ -38,7 +38,7 @@
         <div class="row h-100">
             <div class="col-md-12">
                 <div class="mt-5">
-                    <h1 class="text-center">Number of bugs: {{ queries.paginator.count }}</h1><span>
+                    <h1 class="numberof text-center">Number of bugs: {{ queries.paginator.count }}</h1><span>
                     <a class="btn btn-outline-secondary mt-2" href="{% url 'bug-create' %}">ADD NEW ONE</a>
                     </span>
                 </div>
@@ -48,26 +48,26 @@
             {% if queries %}
                 {% for query in queries %}
                     <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
-                        <div class="card card-query my-5 hvr-grow">
-                            <img src="{% static 'img/bugsmall.webp' %}" class="  card-img text-center" alt="bug icon">
+                        <div class="card card-query my-5 hvr-shrink">
+                            <img src="{% static 'img/bugsmall.webp' %}" class="mt-2 card-img text-center" alt="bug icon">
                             <div class="card-body ">
                             <h2>{{ query.title }}</h2>
-                            <h5 class="status">Status:<span 
-                            {% if query.status == "To do" %}
-                                class="badge badge-danger ml-2"
-                            {% elif query.status == "In progess" %}
-                                class="badge badge-warning ml-1"
-                            {% else %}
-                                class="badge badge-primary ml-2"
-                            {% endif %}
-                            >{{ query.status }}</span></h5>
+                                <span 
+                                    {% if query.status == "To do" %}
+                                        class="text-center badge badge-danger"
+                                    {% elif query.status == "In progess" %}
+                                        class="text-center badge badge-warning"
+                                    {% else %}
+                                        class="text-center badge badge-primary"
+                                    {% endif %}
+                                >{{ query.status }}</span>
                             </div>
-                            <div class="card-bottom card-query-bottom text-center">
-                                    <a href="{% url 'query-detail' query.id %}"
-                                        class="btn btn-outline-secondary btn-lg ">Details</a>
-                                    <br><br>
-                                    <small>Created: {{ query.date_posted|date:"d F, Y" }} by
-                                        {{ query.author }}</small>
+                            <div class="mt-5">
+                                <a href="{% url 'query-detail' query.id %}"
+                                    class="btn btn-outline-secondary btn-lg text-center ">Details</a>
+                                <br><br>
+                                <small class="text-center">{{ query.date_posted|date:"d F, Y" }} by
+                                    {{ query.author }}</small>
                             </div>
                         </div>
                     </div>

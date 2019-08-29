@@ -9,7 +9,9 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 segment-two md-mb-30 sm-mb-30">
                     <h2>USEFUL LINKS</h2>
                     <ul id="links">
+                      {% if request.get_full_path == "/"%}
                         <li><a href="#showcase">Top of the page</a></li>
+                     {% endif%}
                         <li><a href="{% url 'bugs' %}">Bugs</a></li>
                         <li><a href="{% url 'features' %}">Features</a></li>
                         <li><a href="{% url 'about' %}">About</a></li>
@@ -21,7 +23,7 @@
                     <form action="{% url 'newsletter' %}" method="POST">
                     {% csrf_token %}
                         <div class="flex">
-                            <input name="email" type="email" label="email" aria-label="Email field">
+                            <input id="newsletter" name="email" type="email" label="email" aria-label="Email field">
                             <input type="submit" value="Subscribe">
                         </div>
                     </form>
@@ -29,10 +31,10 @@
                 <div class="col-md-3 col-sm-6 col-xs-12 segment-three sm-mb-30">
                     <h2>Follow Us</h2>
                     <p>Please follow us one our Social Media Profiles in order to keep updated</p>
-                    <a href="#" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="linkedin"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="pinterest"><i class="fab fa-pinterest"></i></a>
+                    <a class="text-center" href="#" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-center" href="#" aria-label="twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="text-center" href="#" aria-label="linkedin"><i class="fab fa-linkedin"></i></a>
+                    <a class="text-center" href="#" aria-label="pinterest"><i class="fab fa-pinterest"></i></a>
                 </div>
 
             </div>

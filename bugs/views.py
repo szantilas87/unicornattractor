@@ -7,10 +7,11 @@ from django.views.generic import CreateView
 from pages.models import Query
 from unicorn.sort_choices import sort_choices
 
-"""
-List of bugs
-"""
+
 def bugs(request):
+    """
+    List of bugs
+    """
     queries = Query.objects.filter(query_type="Bug" ).order_by('-date_posted')
     sort = '-date_posted'
     paginator = Paginator(queries, 8)

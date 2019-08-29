@@ -9,7 +9,7 @@
                 <form action="{% url 'search' %}">
                     <div class="flex">
                         <label class="sr-only">Keywords</label>
-                        <input type="text" name="keywords" class="form-control" placeholder="Keyword" aria-label="keywords">
+                        <input type="text" name="keywords" class="form-control" placeholder="Keyword" aria-label="keywords" required>
                         <button class="btn btn-info" type="submit">Search</button>
                     </div>
                 </form>
@@ -37,7 +37,7 @@
         <div class="row h-100">
             <div class="col-md-12">
                 <div class="mt-5">
-                    <h1 class="text-center">Number of features: {{ queries.paginator.count }}</h1><span>
+                    <h1 class="numberof text-center">Number of features: {{ queries.paginator.count }}</h1><span>
                     {% if request.user.profile.premium %}
                         <a class="btn btn-outline-secondary mt-3 " href="{% url 'feature-create' %}">ADD NEW ONE</a>
                     {% elif  request.user.is_authenticated%}
@@ -55,25 +55,25 @@
         <div class="row  h-100">
             {% for query in queries %}
             <div class=" col-lg-3 col-sm-6 col-xs-12 my-auto text-center">
-                <div class="card card-query my-5 hvr-grow">
-                    <img src="{% static 'img/featuresmall.webp' %}" class="  card-img text-center" alt="card image">
+                <div class="card card-query my-5 hvr-shrink">
+                    <img src="{% static 'img/featuresmall.webp' %}" class="mt-2 card-img text-center" alt="card image">
                     <div class="card-body ">
                         <h2>{{ query.title }}</h2>
-                        <h5 class="status">Status:<span 
+                        <span 
                             {% if query.status == "To do" %}
-                                class="badge badge-danger ml-2"
+                                class="text-center badge badge-danger"
                             {% elif query.status == "In progess" %}
-                                class="badge badge-warning ml-1"
+                                class="text-center badge badge-warning"
                             {% else %}
-                                class="badge badge-primary ml-2"
+                                class="text-center badge badge-primary"
                             {% endif %}
-                        >{{ query.status }}</span></h5>
+                        >{{ query.status }}</span>
                     </div>
-                    <div class="card-bottom card-query-bottom text-center">
+                    <div class="mt-5">
                         <a href="{% url 'query-detail' query.id %}"
-                            class="btn btn-outline-secondary btn-lg ">Details</a>
+                            class="btn btn-outline-secondary btn-lg text-center ">Details</a>
                         <br><br>
-                        <small>Created: {{ query.date_posted|date:"d F, Y" }} by
+                        <small class="text-center">{{ query.date_posted|date:"d F, Y" }} by
                             {{ query.author }}</small>
                     </div>
                 </div>

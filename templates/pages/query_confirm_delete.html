@@ -8,7 +8,7 @@
                     <div class="card col-md-6 offset-md-3 vh-middle">
                         <div class="card-header">{{ object.title }}</div>
                         <div class="card-body">
-                            <h5 class="card-title">Are you sure you want to delete the query</h5>
+                            <h5 class="card-title">Are you sure you want to delete {{ object.title }}</h5>
                             <button class="btn btn-outline-danger btn-lg" type="submit">Delete</button>
                         <a class="btn btn-outline-secondary btn-lg ml-1" href="{% url 'query-detail' object.id %}">Cancel</a>
                         </div>

@@ -3,30 +3,33 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
-"""
-New user form
-"""
+
 class UserRegisterForm(UserCreationForm):
+    """
+    New user form
+    """
     email = forms.EmailField()
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-"""
-Update existing user form
-"""
+
 class UserUpdateForm(forms.ModelForm):
+    """
+    Update existing user form
+    """
     email = forms.EmailField()
 
     class Meta:
         model = User
         fields = ['username', 'email',]
 
-"""
-Update logged user profile
-"""
+
 class ProfileUpdateForm(forms.ModelForm):
+    """
+    Update logged user profile
+    """
     image = forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = Profile

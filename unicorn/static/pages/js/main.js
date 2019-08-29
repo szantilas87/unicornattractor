@@ -49,14 +49,14 @@ sr.reveal('.features-left', {
     origin: 'bottom',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 500,
+    delay: 250,
 });
 sr.reveal('.features-right', {
     duration: 2000,
     origin: 'bottom',
     distance: '300px',
     viewFactor: 0.2,
-    delay: 500,
+    delay: 250,
 });
 sr.reveal('.bugs-left', {
     duration: 2000,
@@ -102,16 +102,16 @@ sr.reveal('.customer4', {
 });
 
 sr.reveal('#piechart', {
-    duration: 2000,
-    origin: 'left',
-    distance: '300px',
+    duration: 1000,
+    origin: 'top',
+    distance: '100px',
     viewFactor: 0.2,
     delay: 250,
 });
 sr.reveal('#pietext', {
     duration: 2000,
-    origin: 'right',
-    distance: '300px',
+    origin: 'top',
+    distance: '100px',
     viewFactor: 0.2,
     delay: 250,
 });
@@ -127,7 +127,7 @@ sr.reveal('#statustext', {
     origin: 'left',
     distance: '100px',
     viewFactor: 0.2,
-    delay: 750,
+
 });
 
 sr.reveal('#datestext', {
@@ -135,19 +135,15 @@ sr.reveal('#datestext', {
     origin: 'bottom',
     distance: '75px',
     viewFactor: 0.2,
-    delay: 1000,
+    delay: 750,
 });
 sr.reveal('#dateschart', {
     duration: 2000,
     origin: 'bottom',
     distance: '75px',
     viewFactor: 0.2,
-    delay: 1000,
+    delay: 750,
 });
-
-
-
-
 
 // Smooth scroll on main page
 

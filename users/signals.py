@@ -3,17 +3,15 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
 
-"""
-Create a profile when a new user is created
-"""
+
+#Create a profile when a new user is created
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-"""
-Save created profile
-"""
+
+#Save created profile
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
     instance.profile.save()

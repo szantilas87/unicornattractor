@@ -9,18 +9,24 @@ from .models import Query, Comment
 from .forms import CommentForm
 from django.conf import settings
 import stripe
+from io import BytesIO
+import base64
+import matplotlib
+matplotlib.use("Agg")
 from matplotlib import pyplot as plt
+from matplotlib import dates as mpl_dates
 import numpy as np
 from django.db.models import Count
 import csv
-from datetime import datetime
 import pandas as pd
+from datetime import datetime
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
-"""
-Main page view
-"""
+
 class QueryListView(ListView):
+    """
+    Main page view
+    """
     model = Query
     template_name = 'pages/index.html'
     context_object_name = 'queries' 
@@ -35,18 +41,18 @@ class QueryListView(ListView):
         context['page_title']="UnicornAttractor"
         return context
        
-"""
-List of queries for a particular user
-"""
+
 class UserQueryListView(ListView):
+    """
+    List of queries for a particular user
+    """
     model = Query
     template_name = 'pages/user_queries.html'
     context_object_name = 'queries'
     paginate_by = 8
 
-    """
-    Find queries for the specific user
-    """
+    
+    #Find queries for the specific user
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Query.objects.filter(author=user).order_by('-date_posted')
@@ -57,10 +63,11 @@ class UserQueryListView(ListView):
         context['page_title']=user.username
         return context
 
-"""
-A view for particular query
-"""
+
 def query_detail(request, id):
+    """
+    A view for particular query
+    """
     query = get_object_or_404(Query, id=id,)
     query.views += 1
     query.save()
@@ -75,7 +82,7 @@ def query_detail(request, id):
         if comment_form.is_valid():
             content = request.POST.get('content')
             comment = Comment.objects.create(query=query, user=request.user, content= content)
-            comment_form.save()
+            
                       
             return redirect(reverse('query-detail',kwargs={"id":id}))
         
@@ -91,12 +98,13 @@ def query_detail(request, id):
         'page_title': query.title
     }
     
-    return render(request,'pages/query_detail.html', context, )
+    return render(request,'pages/query_detail.html', context)
 
-"""
-Like query
-"""
+
 def like_query(request):
+    """
+    Like query
+    """
     query_id =request.POST.get('query_id')
     query = get_object_or_404(Query, id=request.POST.get('query_id'))
     is_liked = False
@@ -108,11 +116,11 @@ def like_query(request):
         is_liked = True
     return redirect('query-detail', id=query_id)
 
-"""
-Update an exisiting query
-"""
+
 class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    
+    """
+    Update an exisiting query
+    """
     model = Query
     fields = ['title', 'content']
     
@@ -122,9 +130,8 @@ class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super().form_valid(form)
     
 
-    """
-    Test if the logged user is the author of the query
-    """
+   
+    #Test if the logged user is the author of the query
     def test_func(self):
         query = self.get_object()
         if self.request.user == query.author:
@@ -137,29 +144,27 @@ class QueryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
  
 
-"""
-Delete a query
-"""
 class QueryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Delete a query
+    """
     model = Query
     success_url = '/'
 
-    """
-    Test if the logged user is the author of the query
-    """
+   
+    #Test if the logged user is the author of the query
     def test_func(self):
         query = self.get_object()
         if self.request.user == query.author:
             return True
         return False
 
-"""
-About page view
-"""
 def about(request):
-    """ 
-    Pie chart bugs/features ratio 
     """
+    About page view
+    """
+    
+    #Pie chart bugs/features ratio 
     bugs = Query.objects.filter(query_type="Bug" ).count()
     features = Query.objects.filter(query_type="Feature").count()
     slices = [bugs, features]
@@ -172,11 +177,13 @@ def about(request):
 
     fig1.tight_layout()
 
-    fig1.savefig('media/charts/pie.png')
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    piechart = base64.b64encode(buf.getvalue()).decode('utf-8').replace('\n', '')
+    buf.close()
 
-    """
-    Bar chart for status of the queries
-    """
+    
+    #Bar chart for status of the queries
     to_do = Query.objects.filter(status='To do').count()
     in_progress= Query.objects.filter(status='In progess').count()
     done = Query.objects.filter(status='Done').count()    
@@ -186,6 +193,7 @@ def about(request):
     colors = ('#6d904f', '#fc4f30', '#008fd5')
     fig2, ax2 = plt.subplots()
 
+   
     ax2.bar(x_axis, statuses, color=colors)
 
     ax2.set_xticks(ticks=x_axis)
@@ -196,14 +204,25 @@ def about(request):
     
     ax2.set_xlabel('Status')
     ax2.set_ylabel('Amount')
+
+    yint = []
+    locs, labels = plt.yticks()                                       
+    for each in locs:
+        yint.append(int(each))
+    plt.yticks(yint)
+
+    
+
     
     fig2.tight_layout()
+    
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    statuschart = base64.b64encode(buf.getvalue()).decode('utf-8').replace('\n', '')
+    buf.close()
 
-    fig2.savefig('media/charts/status.png')
-
-    """
-    Amount of queries in time
-    """
+    
+    #Amount of queries in time
     queries = Query.objects.all()
     fieldnames = ['date']
 
@@ -216,35 +235,65 @@ def about(request):
             csv_writer.writerow(date)
 
     fig3, ax3 = plt.subplots()
+
+    ax2.set_ylabel('Amount')
     
     raw_data = pd.read_csv('media/charts/raw_data.csv')
     aggregate_dates = raw_data.groupby(['date']).size().to_frame('amount')
     aggregate_dates.to_csv('media/charts/data_calculated.csv')
 
     data = pd.read_csv('media/charts/data_calculated.csv')
+
+    data['date'] = pd.to_datetime(data['date'],format= '%d-%m-%Y')
+    data.sort_values('date', inplace=True)
+
     date = data['date']
     amount = data['amount']
 
     ax3.plot_date(date, amount, linestyle='solid')
+    ax3.set_ylabel('Amount')
     plt.gcf().autofmt_xdate()
+ 
+    yint = []
+    locs, labels = plt.yticks()                                       
+    for each in locs:
+        yint.append(int(each))
+    plt.yticks(yint)
+
+  
+
     fig3.tight_layout()
-    fig3.savefig('media/charts/dates.png')
+
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    datechart = base64.b64encode(buf.getvalue()).decode('utf-8').replace('\n', '')
+    buf.close()
+
+
+
+    context = {
+        'page_title':'About',
+        'piechart': piechart,
+        'statuschart':statuschart,
+        'datechart':datechart
+    }
     
-    return render(request, 'pages/about.html', {'page_title':'About'})
+    
+    return render(request, 'pages/about.html', context)
 
 
-"""
-Search view
-"""
+
 def search(request):
+    """
+    Search view
+    """
     queries = Query.objects.order_by('-date_posted')
     paginator = Paginator(queries, 8)
     page = request.GET.get('page')
     paged_queries = paginator.get_page(page)
 
-    """
-    Search for keywords
-    """
+    
+    #Search for keywords
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
@@ -256,10 +305,11 @@ def search(request):
     }
     return render(request, 'pages/search.html', context)
 
-"""
-Access to adding a feature after payment
-"""
+
 def paid(request):
+    """
+    Access to adding a feature after payment
+    """
     if request.method == 'POST':
         charge = stripe.Charge.create(
             amount=5000,

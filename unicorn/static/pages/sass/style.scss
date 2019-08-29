@@ -9,7 +9,7 @@
     }
     
     body {
-        background: #fafafa;
+        background: #fff;
         color: #333333;
         font-size: 16px;
     }
@@ -135,7 +135,6 @@
     .status {
         position: fixed;
         top: 330px;
-        left: 80px;
     }
     /*Customers*/
     
@@ -233,6 +232,11 @@
         max-width: 100%;
         border-width: .2rem;
         border-color: #0b1926;
+    }
+    
+    #newsletter {
+        border: none !important;
+        outline: none !important;
     }
     
     #div_id_title,
@@ -430,5 +434,9 @@
         }
         .chart {
             width: 90vw;
+        }
+        .numberof,
+        .card-query h2 {
+            font-size: 1.7rem;
         }
     }

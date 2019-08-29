@@ -3,10 +3,10 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-"""
-Model for a new query
-"""
 class Query(models.Model):
+    """
+    Model for a new query
+    """
     BUG = 'Bug'
     FEATURE = 'Feature'
     QUERY_CHOICES = [
@@ -41,22 +41,19 @@ class Query(models.Model):
     def __str__(self):
         return self.title
 
-    """
-    Return url to a specific query
-    """
+    #Return url to a specific query
     def get_absolute_url(self):
         return reverse("query-detail", kwargs={"pk": self.pk})
 
-    """
-    Count total likes
-    """
+    #Count total likes
     def total_likes(self):
         return self.likes.count()
     
-"""
-Model for a new comment
-"""
+
 class Comment(models.Model):
+    """
+    Model for a new comment
+    """
     query = models.ForeignKey(Query, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=200)
