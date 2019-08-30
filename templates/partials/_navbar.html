@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     {% if request.user.profile.premium %}
-         <a class="navbar-brand" href="{% url 'home' %}">UnicornAttractors<span class="badge badge-danger ml-2">Premium</span></a>
+         <a class="navbar-brand" href="{% url 'home' %}">UnicornAttractor<span class="badge badge-danger ml-2">Premium</span></a>
     {% else %}
         <a class="navbar-brand" href="{% url 'home' %}">UnicornAttractor</a>
     {% endif %}
