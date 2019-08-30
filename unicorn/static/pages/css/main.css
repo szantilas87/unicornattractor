@@ -52,6 +52,9 @@ p {
 .nav-item {
   font-size: 1.5rem; }
 
+.nav-link {
+  padding-left: 1rem !important; }
+
 #showcase h1,
 .info-left h1 {
   font-size: 50px;
@@ -105,6 +108,9 @@ p {
   position: fixed;
   top: 370px;
   left: 60px; }
+
+.card-body p {
+  font-size: 1.25rem; }
 
 .status {
   position: fixed;

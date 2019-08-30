@@ -52,7 +52,7 @@
                             <img src="{% static 'img/bugsmall.webp' %}" class="mt-2 card-img text-center" alt="bug icon">
                             <div class="card-body ">
                             <h2>{{ query.title }}</h2>
-                                <span 
+                                <p 
                                     {% if query.status == "To do" %}
                                         class="text-center badge badge-danger"
                                     {% elif query.status == "In progess" %}
@@ -60,7 +60,7 @@
                                     {% else %}
                                         class="text-center badge badge-primary"
                                     {% endif %}
-                                >{{ query.status }}</span>
+                                >{{ query.status }}</p>
                             </div>
                             <div class="mt-5">
                                 <a href="{% url 'query-detail' query.id %}"
